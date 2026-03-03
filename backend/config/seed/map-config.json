@@ -1,0 +1,155 @@
+{
+  "regionLabels": {
+    "CG7": "Likouala",
+    "CG8": "Cuvette\nCentrale",
+    "CG14": "Plateaux",
+    "CG12": "Pool",
+    "CGBZV": "Brazzaville",
+    "CG11": "Bouenza",
+    "CG9": "Niari",
+    "CG5": "Kouilou",
+    "CG13": "Sangha",
+    "CG15": "Cuvette-\nOuest",
+    "CG2": "Lékoumou",
+    "CG16": "Pointe-Noire"
+  },
+  "regionColorsById": {
+    "CG7": "#b38d43",
+    "CG8": "#3f9b8c",
+    "CG14": "#567cc2",
+    "CG12": "#6f78b8",
+    "CGBZV": "#cc6772",
+    "CG11": "#b87846",
+    "CG9": "#8a4761",
+    "CG5": "#486a8f",
+    "CG13": "#5a9150",
+    "CG15": "#9b7a3f",
+    "CG2": "#7660a8",
+    "CG16": "#d6a23b"
+  },
+  "subdivisionsByRegionId": {
+    "CGBZV": {
+      "name": "Brazzaville",
+      "label": "Arrondissements",
+      "items": ["Makélékélé", "Bacongo", "Poto-Poto", "Moungali", "Ouenzé", "Talangaï", "Mfilou", "Madibou", "Djiri"]
+    },
+    "CG16": {
+      "name": "Pointe-Noire",
+      "label": "Arrondissements",
+      "items": ["Lumumba", "Mvoumvou", "Tié-Tié", "Loandjili"]
+    },
+    "CG11": {
+      "name": "Bouenza",
+      "label": "Arrondissements",
+      "items": ["Madingou"]
+    },
+    "CG8": {
+      "name": "Cuvette Centrale",
+      "label": "Arrondissements",
+      "items": ["Owando"]
+    },
+    "CG15": {
+      "name": "Cuvette Ouest",
+      "label": "Arrondissements",
+      "items": ["Ewo"]
+    },
+    "CG5": {
+      "name": "Kouilou",
+      "label": "Arrondissements",
+      "items": ["Loango"]
+    },
+    "CG2": {
+      "name": "Lékoumou",
+      "label": "Arrondissements",
+      "items": ["Sibiti"]
+    },
+    "CG9": {
+      "name": "Niari",
+      "label": "Arrondissements",
+      "items": ["Dolisie"]
+    },
+    "CG14": {
+      "name": "Plateaux",
+      "label": "Arrondissements",
+      "items": ["Djambala"]
+    },
+    "CG7": {
+      "name": "Likouala",
+      "label": "Arrondissements",
+      "items": ["Impfondo"]
+    },
+    "CG13": {
+      "name": "Sangha",
+      "label": "Arrondissements",
+      "items": ["Ouesso"]
+    },
+    "CG12": {
+      "name": "Pool",
+      "label": "Arrondissements",
+      "items": ["Kinkala"]
+    }
+  },
+  "cities": [
+    { "kind": "city", "x": 900, "y": 95, "label": "Betou", "dot": "white" },
+    { "kind": "city", "x": 850, "y": 135, "label": "Enyelle", "dot": "white" },
+    { "kind": "city", "x": 735, "y": 185, "label": "Epena", "dot": "white" },
+    { "kind": "city", "x": 835, "y": 185, "label": "Dongou", "dot": "white" },
+    { "kind": "city", "x": 810, "y": 230, "label": "Impfondo", "dot": "red" },
+    { "kind": "city", "x": 760, "y": 315, "label": "Liouesso", "dot": "white" },
+    { "kind": "city", "x": 745, "y": 345, "label": "Pikounda", "dot": "white" },
+    { "kind": "city", "x": 640, "y": 220, "label": "Sembe", "dot": "white" },
+    { "kind": "city", "x": 575, "y": 200, "label": "Ngbala", "dot": "white" },
+    { "kind": "city", "x": 500, "y": 200, "label": "Souanke", "dot": "white" },
+    { "kind": "city", "x": 640, "y": 405, "label": "Mbomo", "dot": "white" },
+    { "kind": "city", "x": 665, "y": 290, "label": "Ouesso", "dot": "red" },
+    { "kind": "city", "x": 525, "y": 450, "label": "Etoumbi", "dot": "white" },
+    { "kind": "city", "x": 610, "y": 450, "label": "Makoua", "dot": "white" },
+    { "kind": "city", "x": 500, "y": 485, "label": "Kelle", "dot": "white" },
+    { "kind": "city", "x": 540, "y": 560, "label": "Ewo", "dot": "red" },
+    { "kind": "city", "x": 615, "y": 560, "label": "Owando", "dot": "red" },
+    { "kind": "city", "x": 655, "y": 575, "label": "Obouya", "dot": "white" },
+    { "kind": "city", "x": 705, "y": 595, "label": "Liranga", "dot": "white" },
+    { "kind": "city", "x": 575, "y": 585, "label": "Boundji", "dot": "white" },
+    { "kind": "city", "x": 640, "y": 620, "label": "Oyo", "dot": "white" },
+    { "kind": "city", "x": 675, "y": 650, "label": "Abala", "dot": "white" },
+    { "kind": "city", "x": 760, "y": 600, "label": "Loukolela", "dot": "white" },
+    { "kind": "city", "x": 720, "y": 640, "label": "Mossaka", "dot": "white" },
+    { "kind": "city", "x": 620, "y": 720, "label": "Gamboma", "dot": "white" },
+    { "kind": "city", "x": 560, "y": 760, "label": "Lekana", "dot": "white" },
+    { "kind": "city", "x": 655, "y": 760, "label": "Ngo", "dot": "white" },
+    { "kind": "city", "x": 560, "y": 800, "label": "Djambala", "dot": "red" },
+    { "kind": "city", "x": 720, "y": 810, "label": "Mpouya", "dot": "white" },
+    { "kind": "city", "x": 760, "y": 760, "label": "Makotipoko", "dot": "white" },
+    { "kind": "city", "x": 720, "y": 860, "label": "Ngabe", "dot": "white" },
+    { "kind": "city", "x": 680, "y": 900, "label": "Odziba", "dot": "white" },
+    { "kind": "city", "x": 645, "y": 935, "label": "Mayama", "dot": "white" },
+    { "kind": "city", "x": 640, "y": 970, "label": "Boko", "dot": "white" },
+    { "kind": "city", "x": 585, "y": 900, "label": "Mouyondzi", "dot": "white" },
+    { "kind": "city", "x": 560, "y": 850, "label": "Vinza", "dot": "white" },
+    { "kind": "city", "x": 450, "y": 870, "label": "Sibiti", "dot": "red" },
+    { "kind": "city", "x": 400, "y": 850, "label": "Komono", "dot": "white" },
+    { "kind": "city", "x": 485, "y": 820, "label": "Zanaga", "dot": "white" },
+    { "kind": "city", "x": 455, "y": 780, "label": "Bambama", "dot": "white" },
+    { "kind": "city", "x": 390, "y": 775, "label": "Mayoko", "dot": "white" },
+    { "kind": "city", "x": 350, "y": 745, "label": "Mbinda", "dot": "white" },
+    { "kind": "city", "x": 320, "y": 800, "label": "Mossendjo", "dot": "white" },
+    { "kind": "city", "x": 260, "y": 840, "label": "Moutamba", "dot": "white" },
+    { "kind": "city", "x": 240, "y": 815, "label": "Divenie", "dot": "white" },
+    { "kind": "city", "x": 300, "y": 885, "label": "Kibangou", "dot": "white" },
+    { "kind": "city", "x": 255, "y": 945, "label": "Nkola", "dot": "white" },
+    { "kind": "city", "x": 185, "y": 980, "label": "Madingo-Kayes", "dot": "white" },
+    { "kind": "city", "x": 300, "y": 865, "label": "Makabana", "dot": "white" },
+    { "kind": "city", "x": 330, "y": 875, "label": "Dolisie", "dot": "red" },
+    { "kind": "city", "x": 355, "y": 920, "label": "Loudima", "dot": "white" },
+    { "kind": "city", "x": 505, "y": 905, "label": "Mouyondzi", "dot": "white" },
+    { "kind": "city", "x": 250, "y": 920, "label": "Hinda", "dot": "red" },
+    { "kind": "city", "x": 210, "y": 940, "label": "Pointe-Noire", "dot": "red" },
+    { "kind": "city", "x": 390, "y": 900, "label": "Nkayi", "dot": "red" },
+    { "kind": "city", "x": 450, "y": 875, "label": "Madingou", "dot": "red" },
+    { "kind": "city", "x": 520, "y": 900, "label": "Loutete", "dot": "white" },
+    { "kind": "city", "x": 540, "y": 920, "label": "Mindouli", "dot": "white" },
+    { "kind": "city", "x": 600, "y": 940, "label": "Kinkala", "dot": "red" },
+    { "kind": "city", "x": 545, "y": 860, "label": "Kindamba", "dot": "white" },
+    { "kind": "city", "x": 655, "y": 905, "label": "Brazzaville", "dot": "red" }
+  ]
+}

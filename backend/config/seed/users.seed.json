@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "id": "usr_warroom_admin",
+      "username": "warroom.admin",
+      "email": "warroom.admin@mrc.local",
+      "name": "War Room Admin",
+      "role": "war_room",
+      "passwordSalt": "a3c073654bb1c208516e30d859ee490c",
+      "passwordHash": "1e37f5ec994ff31ac37a1e8d3a19293b53df02c6a89d9bd8e5602af39410dbabbc060f03aca74d56d744b1a87124d5158d01abae05b171e85756b03cd573614f"
+    },
+    {
+      "id": "usr_regional_pool",
+      "username": "regional.pool",
+      "email": "regional.pool@mrc.local",
+      "name": "Coordinateur Pool",
+      "role": "regional_coordinator",
+      "scopeDepartmentId": "CG12",
+      "scopeDepartmentName": "Pool",
+      "terrainModules": [
+        "campaign",
+        "sondage",
+        "incident",
+        "events",
+        "mission",
+        "digital",
+        "logistique"
+      ],
+      "passwordSalt": "4a6c09922d9f86294acf13e573189256",
+      "passwordHash": "de627967fbdde905bf05b9241105556691427611c3244a8cb4e1fd556d0d0699d2435ffec41970ac3aca0535fcec169edc4f01ac8420572420a8bb24fd9ddff5"
+    },
+    {
+      "id": "usr_zone_likouala",
+      "username": "zone.likouala",
+      "email": "zone.likouala@mrc.local",
+      "name": "Chef de Zone Likouala",
+      "role": "zone_leader",
+      "scopeDepartmentId": "CG7",
+      "scopeDepartmentName": "Likouala",
+      "scopeArrondissementName": "Impfondo",
+      "terrainModules": [
+        "campaign",
+        "sondage",
+        "incident",
+        "events",
+        "mission"
+      ],
+      "passwordSalt": "3e8b12eec41339cf8303785250369444",
+      "passwordHash": "e2936f6687119f7d795d808f9bb51f69ec932f3dc4cf7a09e68e2e461a28c5593ae88c8f87c76696534f134c69464ea821b7e33b4b67687b5ff7d6b6dfae8966"
+    },
+    {
+      "id": "usr_agent_hinda",
+      "username": "agent.hinda",
+      "email": "agent.hinda@mrc.local",
+      "name": "Agent Terrain Hinda",
+      "role": "field_agent",
+      "scopeDepartmentId": "CG5",
+      "scopeDepartmentName": "Kouilou",
+      "scopeArrondissementName": "Loango",
+      "scopeZoneName": "Zone Loango",
+      "terrainModules": [
+        "campaign",
+        "sondage",
+        "incident",
+        "events"
+      ],
+      "passwordSalt": "02135f30498a5a46a9ccb0a17e16943c",
+      "passwordHash": "43d723ca3722dec71bfcc495061f39a6f4504d499284ab301ccd4c2c2581835a77d5a4fd659ae3c51fb8ceaadd8dbed813350de6e21718bec388e32f7ace163c"
+    },
+    {
+      "id": "usr_members_entry",
+      "username": "adhesion.entry",
+      "email": "adhesion.entry@mrc.local",
+      "name": "Operateur Adhesion",
+      "role": "membership_data_entry",
+      "passwordSalt": "ea015284bd3216a2f00a19adce2d19f0",
+      "passwordHash": "184c3eb92f302172b25334401ee3b012e6322ff99d6bf563d3884f97ec4b25ac6d8c64d75cadf94e1820c56bfa84e6c1c7d343f1bda30b7dc96554c1af0a2f24"
+    },
+    {
+      "id": "usr_candidate_exec",
+      "username": "candidate.exec",
+      "email": "candidate.exec@mrc.local",
+      "name": "Candidat MRC",
+      "role": "candidate",
+      "candidateVisibility": {
+        "showAdhesion": false,
+        "showPolling": true,
+        "showIncidents": true,
+        "showEvents": true,
+        "showMedia": true,
+        "showDigital": true,
+        "showTerrain": true
+      },
+      "passwordSalt": "4c63c73061b4ca7549c70541bcdbafe3",
+      "passwordHash": "08ac9eba35aded6c5549a1dba80ae538a6dc57162b541fd2b4d6ed3647b4fc95cbfd93eaaaf40bde8061217600d0546530761104b6ea759db1a3e2ea297c49b4"
+    },
+    {
+      "id": "usr_direction_exec",
+      "username": "direction.exec",
+      "email": "direction.exec@mrc.local",
+      "name": "Direction Executive",
+      "role": "direction",
+      "candidateVisibility": {
+        "showAdhesion": false,
+        "showPolling": true,
+        "showIncidents": true,
+        "showEvents": true,
+        "showMedia": true,
+        "showDigital": true,
+        "showTerrain": true
+      },
+      "passwordSalt": "3269a14dc4c6d614cec970da207159b1",
+      "passwordHash": "c296504b4cd34308b2375640926cb36fb1f45b353121577bec3f6bb7c75b4b5d159d64409e2433990e2e6bc370671952cfae783ec03e0fd04b559c8651be5bb1"
+    }
+  ]
+}
