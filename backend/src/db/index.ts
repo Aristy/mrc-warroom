@@ -10,13 +10,13 @@ import { seedUsers } from './seed.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.resolve(__dirname, '../../../data');
 export const DB_FILE = path.join(DATA_DIR, 'mrc.sqlite');
-export const WAR_ROOM_SEED_FILE = path.resolve(__dirname, '../../../config/seed/war-room.seed.json');
+export const WAR_ROOM_SEED_FILE = path.resolve(__dirname, '../../config/seed/war-room.seed.json');
 export const WAR_ROOM_RUNTIME_FILE = path.join(DATA_DIR, 'war-room.json');
-export const TERRITORY_SEED_FILE = path.resolve(__dirname, '../../../config/seed/territory.seed.json');
+export const TERRITORY_SEED_FILE = path.resolve(__dirname, '../../config/seed/territory.seed.json');
 export const TERRITORY_RUNTIME_FILE = path.join(DATA_DIR, 'territory.json');
-export const USERS_SEED_FILE = path.resolve(__dirname, '../../../config/seed/users.seed.json');
+export const USERS_SEED_FILE = path.resolve(__dirname, '../../config/seed/users.seed.json');
 export const SYSTEM_SETTINGS_FILE = path.join(DATA_DIR, 'system-settings.json');
-export const UPLOADS_DIR = path.resolve(__dirname, '../../../uploads');
+export const UPLOADS_DIR = path.resolve(__dirname, '../../uploads');
 
 export function readJsonFile<T>(filePath: string): T | null {
   try {
