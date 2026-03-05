@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { db } from '../index.js';
 import type { Role, TerrainModuleId } from '../../constants/roles.js';
 
@@ -98,6 +99,90 @@ export function readUsers(): User[] {
 export function updateTerrainModules(userId: string, modules: string[]): void {
   db.prepare(`UPDATE users SET terrain_modules_json = ?, updated_at = ? WHERE id = ?`)
     .run(JSON.stringify(modules), new Date().toISOString(), userId);
+}
+
+export interface CreateUserData {
+  username: string;
+  email: string;
+  name: string;
+  role: Role;
+  passwordSalt: string;
+  passwordHash: string;
+  scopeDepartmentId?: string;
+  scopeDepartmentName?: string;
+  scopeArrondissementName?: string;
+  scopeZoneName?: string;
+  candidateVisibility?: Record<string, boolean>;
+  terrainModules?: TerrainModuleId[];
+}
+
+export function createUser(data: CreateUserData): User {
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const candidateVisibility = JSON.stringify(data.candidateVisibility ?? {});
+  const terrainModules = JSON.stringify(data.terrainModules ?? defaultTerrainModulesForRole(data.role));
+  db.prepare(`
+    INSERT INTO users (id, username, email, display_name, role_id, scope_department_id, scope_department_name,
+      scope_arrondissement_name, scope_zone_name, candidate_visibility_json, terrain_modules_json,
+      password_salt, password_hash, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    id, data.username.trim().toLowerCase(), data.email.trim().toLowerCase(), data.name,
+    data.role,
+    data.scopeDepartmentId ?? '', data.scopeDepartmentName ?? '',
+    data.scopeArrondissementName ?? '', data.scopeZoneName ?? '',
+    candidateVisibility, terrainModules,
+    data.passwordSalt, data.passwordHash,
+    now, now
+  );
+  return findUserById(id)!;
+}
+
+export interface UpdateUserData {
+  name?: string;
+  email?: string;
+  role?: Role;
+  scopeDepartmentId?: string;
+  scopeDepartmentName?: string;
+  scopeArrondissementName?: string;
+  scopeZoneName?: string;
+  candidateVisibility?: Record<string, boolean>;
+  terrainModules?: TerrainModuleId[];
+  passwordSalt?: string;
+  passwordHash?: string;
+}
+
+export function updateUser(id: string, data: UpdateUserData): User | null {
+  const existing = findUserById(id);
+  if (!existing) return null;
+  const now = new Date().toISOString();
+  const sets: string[] = [];
+  const vals: unknown[] = [];
+
+  if (data.name !== undefined) { sets.push('display_name = ?'); vals.push(data.name); }
+  if (data.email !== undefined) { sets.push('email = ?'); vals.push(data.email.trim().toLowerCase()); }
+  if (data.role !== undefined) { sets.push('role_id = ?'); vals.push(data.role); }
+  if (data.scopeDepartmentId !== undefined) { sets.push('scope_department_id = ?'); vals.push(data.scopeDepartmentId); }
+  if (data.scopeDepartmentName !== undefined) { sets.push('scope_department_name = ?'); vals.push(data.scopeDepartmentName); }
+  if (data.scopeArrondissementName !== undefined) { sets.push('scope_arrondissement_name = ?'); vals.push(data.scopeArrondissementName); }
+  if (data.scopeZoneName !== undefined) { sets.push('scope_zone_name = ?'); vals.push(data.scopeZoneName); }
+  if (data.candidateVisibility !== undefined) { sets.push('candidate_visibility_json = ?'); vals.push(JSON.stringify(data.candidateVisibility)); }
+  if (data.terrainModules !== undefined) { sets.push('terrain_modules_json = ?'); vals.push(JSON.stringify(data.terrainModules)); }
+  if (data.passwordSalt !== undefined) { sets.push('password_salt = ?'); vals.push(data.passwordSalt); }
+  if (data.passwordHash !== undefined) { sets.push('password_hash = ?'); vals.push(data.passwordHash); }
+
+  if (sets.length === 0) return existing;
+  sets.push('updated_at = ?');
+  vals.push(now);
+  vals.push(id);
+  db.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`).run(...vals);
+  return findUserById(id);
+}
+
+export function deleteUser(id: string): boolean {
+  db.prepare('DELETE FROM sessions WHERE user_id = ?').run(id);
+  const result = db.prepare('DELETE FROM users WHERE id = ?').run(id);
+  return result.changes > 0;
 }
 
 export function sanitizeUser(user: User): Omit<User, 'passwordSalt' | 'passwordHash'> {

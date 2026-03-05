@@ -53,6 +53,6 @@ function initDatabase(): Database.Database {
   return database;
 }
 
-export const db = initDatabase();
+export const db: Database.Database = initDatabase();
 ensureRuntimeJsonFile(WAR_ROOM_RUNTIME_FILE, WAR_ROOM_SEED_FILE);
 ensureRuntimeJsonFile(TERRITORY_RUNTIME_FILE, TERRITORY_SEED_FILE);

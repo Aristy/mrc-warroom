@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { useWS } from '../hooks/useWS.js';
 import { useApi } from '../hooks/useApi.js';
 import { dashboardApi } from '../api/dashboard.api.js';
@@ -102,6 +103,21 @@ export default function CandidateBriefPage() {
       {regions.length > 0 && (
         <>
           <h2 style={{ fontSize: 15, fontWeight: 600, marginBottom: 12, color: '#8b8fa8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Régions — synthèse</h2>
+          {/* Mobilisation chart */}
+          {visibility.showPolling && regions.some(r => r.mobilisation > 0 || r.pollingAverage > 0) && (
+            <div style={{ background: '#1a1d27', border: '1px solid #2a2d3a', borderRadius: 8, padding: '14px 16px', marginBottom: 16 }}>
+              <div style={{ fontSize: 12, color: '#8b8fa8', fontWeight: 600, marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Mobilisation &amp; Sondage par région</div>
+              <ResponsiveContainer width="100%" height={160}>
+                <BarChart data={regions.map(r => ({ name: r.name.split(' ')[0], Mobilisation: r.mobilisation, Sondage: r.pollingAverage }))} barGap={2} barCategoryGap="20%">
+                  <XAxis dataKey="name" tick={{ fill: '#6b7280', fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: '#6b7280', fontSize: 10 }} axisLine={false} tickLine={false} width={28} domain={[0, 100]} />
+                  <Tooltip contentStyle={{ background: '#1a1d27', border: '1px solid #2a2d3a', borderRadius: 6, fontSize: 12, color: '#e8eaf0' }} cursor={{ fill: '#ffffff08' }} />
+                  <Bar dataKey="Mobilisation" fill="#2563eb" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="Sondage" fill="#c9a84c" radius={[3, 3, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 12, marginBottom: 28 }}>
             {regions.map(r => (
               <div key={r.id} style={{ background: '#1a1d27', border: '1px solid #2a2d3a', borderRadius: 8, padding: 14 }}>

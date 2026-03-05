@@ -1,0 +1,59 @@
+{
+  "alert": {
+    "level": "normal"
+  },
+  "kpis": {
+    "missions": {
+      "objectifJour": 0,
+      "missionsEngagees": 0,
+      "tauxRealisation": 0
+    },
+    "terrain": {
+      "portesAPorte": {
+        "done": 0,
+        "target": 0
+      },
+      "meetingsConfirmes": 0
+    },
+    "digital": {
+      "vuesVideo": 0,
+      "whatsappRelay": 0
+    },
+    "logistique": {
+      "transportPrevuCamions": 0,
+      "risques24h": 0
+    }
+  },
+  "map": {
+    "zonesChaudes": 0,
+    "zonesFaibles": 0,
+    "actionDuJour": "",
+    "regions": []
+  },
+  "priorities": [],
+  "incidents24h": [],
+  "calendarToday": [],
+  "completePollingReview": {
+    "summary": {
+      "total": 0,
+      "supportAverage": 0,
+      "turnoutAverage": 0,
+      "topIssue": "-",
+      "topRegion": "-"
+    },
+    "items": []
+  },
+  "campaign": {
+    "totalPublished": 0,
+    "newAdherents": 0,
+    "newVolunteers": 0,
+    "terrainReports": 0,
+    "missionsReported": 0,
+    "digitalEntries": 0,
+    "incidentEntries": 0,
+    "logisticsEntries": 0,
+    "pollingAverage": 0,
+    "publishedToday": 0,
+    "memberDepartmentsCovered": 0
+  }
+}

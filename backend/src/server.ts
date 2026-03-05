@@ -1,6 +1,6 @@
 import { buildApp } from './app.js';
 
-const PORT = Number(process.env.PORT || 8787);
+const PORT = Number(process.env.PORT || 8686);
 
 const app = await buildApp();
 

@@ -36,9 +36,16 @@ export async function buildApp() {
     subscribe(socket, topic);
     socket.send(JSON.stringify({ type: 'connected', topic, timestamp: new Date().toISOString() }));
 
-    socket.on('message', (data) => {
+    socket.on('message', (data: unknown) => {
       try {
-        const msg = JSON.parse(data.toString());
+        const raw = typeof data === 'string'
+          ? data
+          : Buffer.isBuffer(data)
+            ? data.toString()
+            : Array.isArray(data)
+              ? Buffer.concat(data).toString()
+              : String(data);
+        const msg = JSON.parse(raw);
         if (msg.type === 'pong') return; // heartbeat response, ignore
       } catch { /* ignore malformed */ }
     });

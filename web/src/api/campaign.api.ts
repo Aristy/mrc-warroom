@@ -33,8 +33,8 @@ export const mediaApi = {
 export const teamsApi = {
   list: () => apiFetch<{ teams: Team[] }>('/api/teams'),
   create: (data: unknown) => apiPost<Team>('/api/teams', data),
-  users: () => apiFetch<{ users: User[] }>('/api/users'),
-  updateModules: (userId: string, modules: string[]) => apiFetch<User>(`/api/users/${userId}/terrain-modules`, { method: 'PUT', body: JSON.stringify({ modules }) }),
+  users: () => apiFetch<{ users: User[] }>('/api/team-users'),
+  updateModules: (userId: string, modules: string[]) => apiFetch<User>(`/api/team-users/${userId}/terrain-modules`, { method: 'PUT', body: JSON.stringify({ modules }) }),
 };
 
 export const territoryApi = {

@@ -1,5 +1,6 @@
 import { useApi } from '../hooks/useApi.js';
 import { dashboardApi } from '../api/dashboard.api.js';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 interface PollRegion {
   departmentId: string;
@@ -46,6 +47,28 @@ export default function PollingReview() {
           {Object.keys(breakdown).length > 0 && (
             <>
               <h2 className="section-title">Intentions de vote — National</h2>
+              {/* Recharts bar chart */}
+              <div style={{ background: '#1c2333', border: '1px solid #1f2937', borderRadius: 10, padding: '14px 16px', marginBottom: 20 }}>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart
+                    data={Object.entries(breakdown).map(([option, count]) => ({
+                      name: option,
+                      pct: data?.totalRespondents ? Math.round((count / data.totalRespondents) * 100) : 0,
+                      count,
+                    }))}
+                    layout="vertical" barCategoryGap="25%"
+                  >
+                    <XAxis type="number" domain={[0, 100]} tick={{ fill: '#6b7280', fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => `${v}%`} />
+                    <YAxis type="category" dataKey="name" tick={{ fill: '#d1d5db', fontSize: 12 }} axisLine={false} tickLine={false} width={140} />
+                    <Tooltip contentStyle={{ background: '#1a1d27', border: '1px solid #2a2d3a', borderRadius: 6, fontSize: 12, color: '#e8eaf0' }} formatter={(val, _name, props) => [`${val}% (${props.payload.count})`, 'Score']} cursor={{ fill: '#ffffff08' }} />
+                    <Bar dataKey="pct" radius={[0, 4, 4, 0]}>
+                      {Object.entries(breakdown).map((_entry, i) => (
+                        <Cell key={i} fill={['#7c3aed', '#2563eb', '#d97706', '#16a34a', '#dc2626'][i % 5]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
               <div className="breakdown-list">
                 {Object.entries(breakdown).map(([option, count]) => {
                   const pct = data?.totalRespondents ? Math.round((count / data.totalRespondents) * 100) : 0;

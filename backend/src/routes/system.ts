@@ -12,6 +12,8 @@ import { readTerritoryData } from '../services/territory.service.js';
 import { buildWarRoomCampaignSummary } from '../services/campaign.service.js';
 import { createEmptyWarRoomData } from '../services/dashboard.service.js';
 import { clearDirectoryContents } from '../services/upload.service.js';
+import { readUsers, findUserById, createUser, updateUser, deleteUser, sanitizeUser } from '../db/queries/users.js';
+import { hashPassword } from '../services/auth.service.js';
 import path from 'path';
 
 const DEFAULTS = {
@@ -79,5 +81,63 @@ export async function systemRoutes(app: FastifyInstance): Promise<void> {
     writeJsonFile(WAR_ROOM_RUNTIME_FILE, createEmptyWarRoomData());
     writeJsonFile(SYSTEM_SETTINGS_FILE, { ...DEFAULTS, environmentMode: 'production', updatedAt: new Date().toISOString() });
     return reply.send({ clearedAt: new Date().toISOString() });
+  });
+
+  // User management
+  app.get('/api/system/users', { preHandler: requireRole(SYSTEM_ADMIN_ROLES) }, async (_req, reply) => {
+    return reply.send(readUsers().map(sanitizeUser));
+  });
+
+  app.post('/api/users', { preHandler: requireRole(SYSTEM_ADMIN_ROLES) }, async (request, reply) => {
+    const body = request.body as Record<string, unknown>;
+    const { username, name, email, role, password, scopeDepartmentId, scopeDepartmentName, scopeArrondissementName, scopeZoneName, candidateVisibility, terrainModules } = body;
+    if (!username || !name || !role || !password) return reply.status(400).send({ error: 'username, name, role, password sont requis' });
+    const existing = readUsers().find(u => u.username === String(username).trim().toLowerCase());
+    if (existing) return reply.status(409).send({ error: 'Ce nom d\'utilisateur existe déjà' });
+    const { salt, hash } = hashPassword(String(password));
+    const user = createUser({
+      username: String(username), name: String(name),
+      email: email ? String(email) : `${String(username).trim().toLowerCase()}@mrc.local`,
+      role: role as never,
+      passwordSalt: salt, passwordHash: hash,
+      scopeDepartmentId: scopeDepartmentId ? String(scopeDepartmentId) : undefined,
+      scopeDepartmentName: scopeDepartmentName ? String(scopeDepartmentName) : undefined,
+      scopeArrondissementName: scopeArrondissementName ? String(scopeArrondissementName) : undefined,
+      scopeZoneName: scopeZoneName ? String(scopeZoneName) : undefined,
+      candidateVisibility: candidateVisibility as Record<string, boolean> | undefined,
+      terrainModules: terrainModules as never,
+    });
+    return reply.status(201).send(sanitizeUser(user));
+  });
+
+  app.put('/api/users/:id', { preHandler: requireRole(SYSTEM_ADMIN_ROLES) }, async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const body = request.body as Record<string, unknown>;
+    const target = findUserById(id);
+    if (!target) return reply.status(404).send({ error: 'Utilisateur introuvable' });
+    const updateData: Parameters<typeof updateUser>[1] = {};
+    if (body.name !== undefined) updateData.name = String(body.name);
+    if (body.email !== undefined) updateData.email = String(body.email);
+    if (body.role !== undefined) updateData.role = body.role as never;
+    if (body.scopeDepartmentId !== undefined) updateData.scopeDepartmentId = String(body.scopeDepartmentId);
+    if (body.scopeDepartmentName !== undefined) updateData.scopeDepartmentName = String(body.scopeDepartmentName);
+    if (body.scopeArrondissementName !== undefined) updateData.scopeArrondissementName = String(body.scopeArrondissementName);
+    if (body.scopeZoneName !== undefined) updateData.scopeZoneName = String(body.scopeZoneName);
+    if (body.candidateVisibility !== undefined) updateData.candidateVisibility = body.candidateVisibility as Record<string, boolean>;
+    if (body.terrainModules !== undefined) updateData.terrainModules = body.terrainModules as never;
+    if (body.password && String(body.password).length >= 6) {
+      const { salt, hash } = hashPassword(String(body.password));
+      updateData.passwordSalt = salt; updateData.passwordHash = hash;
+    }
+    const updated = updateUser(id, updateData);
+    return reply.send(updated ? sanitizeUser(updated) : { error: 'Échec de la mise à jour' });
+  });
+
+  app.delete('/api/users/:id', { preHandler: requireRole(SYSTEM_ADMIN_ROLES) }, async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const requestingUser = request.user;
+    if (requestingUser?.id === id) return reply.status(400).send({ error: 'Impossible de supprimer votre propre compte' });
+    const ok = deleteUser(id);
+    return reply.send({ deleted: ok });
   });
 }

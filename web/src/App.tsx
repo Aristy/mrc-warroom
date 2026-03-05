@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext.js';
+import { ThemeProvider } from './context/ThemeContext.js';
 import AppShell from './components/layout/AppShell.js';
 import Login from './pages/Login.js';
 import Dashboard from './pages/Dashboard.js';
@@ -31,6 +32,7 @@ function DefaultRedirect() {
 export default function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider>
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -48,6 +50,7 @@ export default function App() {
           <Route path="*" element={<DefaultRedirect />} />
         </Routes>
       </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

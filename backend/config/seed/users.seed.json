@@ -6,8 +6,8 @@
       "email": "warroom.admin@mrc.local",
       "name": "War Room Admin",
       "role": "war_room",
-      "passwordSalt": "2a0b8ef174f2c2d59dd0ce145d2fe001",
-      "passwordHash": "9172eea349c9334b6ea78e2643c2f83f43056b374e3a478c6da6146e731289480155af8043a7f629b7c6aaf08332ab7e443343766ba42fc88e0f31c0564fc3cd"
+      "passwordSalt": "5628e0594cea238dc041b8c4752fda27",
+      "passwordHash": "3b77d03e17ba23fd37e58fa1add0083896a529c42ded3db2be45045272755f1c06976b221eb4e66a6f816849eb0f6d511d6637a968f69addd7fed79809212163"
     },
     {
       "id": "usr_regional_pool",
@@ -26,8 +26,8 @@
         "digital",
         "logistique"
       ],
-      "passwordSalt": "eecafa6a587af901075ebb66c4c216ec",
-      "passwordHash": "05cc4c2401ed8f04aa77ac580daf338dfdbf3166fd5d9b506477f399fc56be2ed115e7d8ce83ddd8d6bacba5098d71f2e4e9a70626785a4a9d649760ea5d1ec0"
+      "passwordSalt": "9855d55df8bf5a060fafc20c30bb7e42",
+      "passwordHash": "44eeb7b1c7c4c2111251e000e81965dde27cefd95450291d0570661de62798a6e8de5a24e0ea8c5e6c3cb9ebfc7ae81484a5b6e3fa76a3c3a37880f7752ff7cc"
     },
     {
       "id": "usr_zone_likouala",
@@ -45,8 +45,8 @@
         "events",
         "mission"
       ],
-      "passwordSalt": "11285c33bd45de0505931fd7d18d2d55",
-      "passwordHash": "fcba200d659df1badebf48400527c82f5d3d54137ebb39fd938d38e112a8674b494c54d6baa96187412d5b924e1ff445d4251316c9291fdec816bd681a665f47"
+      "passwordSalt": "ffe7207fbeb4616915a7ed36bd080485",
+      "passwordHash": "036b90faa0e0149ed199eb122f2c9046ea071e74acb950b26edee0a0035430bf9021b4944fcd6e51ec6ddbaf5658b22a8b815c6696d73a38985b79bd2c0c463c"
     },
     {
       "id": "usr_agent_hinda",
@@ -64,8 +64,8 @@
         "incident",
         "events"
       ],
-      "passwordSalt": "1cf7c9123e46fc05197e0ac47196e285",
-      "passwordHash": "a3e2185e3fa4ad7476bfcf549da856ce6c30d31e435c24c24d89387fbedbc46b48df5c169db45c76a4628c3b358f2905671bf8c97c2e87ee53cbcf9bcf94a6ce"
+      "passwordSalt": "51e7be3e6f46df5d6d1ecd58d2c8a391",
+      "passwordHash": "335119393c249ed1da5d4cad6a988c15104d2e98096a7cf2520f24aa9cd031fdb27ca4240886daab46b80b18cfc1d5f4245bee078f544bcb875d99c98f2434c2"
     },
     {
       "id": "usr_members_entry",
@@ -73,8 +73,8 @@
       "email": "adhesion.entry@mrc.local",
       "name": "Operateur Adhesion",
       "role": "membership_data_entry",
-      "passwordSalt": "014aa2bcf50769a9a33f435fbd79a010",
-      "passwordHash": "fac7a53a810022a08c1d23628f6de52cacc74a8607485be8825381e7ebcb3864d37e8d467754dae26de60c7f31daae62c369ca6ca5f66dcae3c719a4a6a7e1a1"
+      "passwordSalt": "5abee6359750edd91b6c1a85e914e4bd",
+      "passwordHash": "7173924de5d52c82401b7d6d3d4674e2ec5876d5fe172f99e2533a52a62345a3116c0e6457afc2ba60cf2f69a2d572e3be00dda4faf61378433e8c77c8d1323a"
     },
     {
       "id": "usr_candidate_exec",
@@ -91,8 +91,8 @@
         "showDigital": true,
         "showTerrain": true
       },
-      "passwordSalt": "b00000a3c87595ae6b159d766d7c08bf",
-      "passwordHash": "935d215303343650a6575fb2e923bca6251a3bdc857f2ab80a78aa46cf3affe59e6b3b3baa170c05c99e0dd4e802bf793b33c52220669b5042738c2c923e6b2e"
+      "passwordSalt": "29529669800f19f706e3952efaa6adb3",
+      "passwordHash": "58ff339eda273462d75573c005d9c430e816ca4b9bf9caa3bb726743d21b5a61e0f86cdc32906dffab90cd7ac016bf9bab8c359bec001e1d135c135f5be5a945"
     },
     {
       "id": "usr_direction_exec",
@@ -109,8 +109,8 @@
         "showDigital": true,
         "showTerrain": true
       },
-      "passwordSalt": "ff3c49778c779b850094fe4903d96841",
-      "passwordHash": "072f35832511c9a8291bd22e67d0d536184c347619573a474187de96f0b05520f9e7d2e9145c8a4081508d91c67169af7b774b93ce6164a111a34d418f78099e"
+      "passwordSalt": "765a6c8563f1bd2bec98ba972a13e027",
+      "passwordHash": "b8fe0814a792d79cbd5eb4c7ba0606b606ff866c3ec05ee82bdcd0cf341b65fb9dcad430a265cf67671a3dbd90e94f246529d4eaeb0e21ab260c8dcff0b00ee9"
     }
   ]
 }

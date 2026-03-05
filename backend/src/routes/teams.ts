@@ -38,11 +38,11 @@ export async function teamsRoutes(app: FastifyInstance): Promise<void> {
     return reply.code(existingId ? 200 : 201).send(team);
   });
 
-  app.get('/api/users', { preHandler: requireRole(TEAM_ACCESS_ROLES) }, async (_req, reply) => {
+  app.get('/api/team-users', { preHandler: requireRole(TEAM_ACCESS_ROLES) }, async (_req, reply) => {
     return reply.send({ users: readUsers().map(sanitizeUser) });
   });
 
-  app.put('/api/users/:id/terrain-modules', { preHandler: requireRole(TEAM_ACCESS_ROLES) }, async (request, reply) => {
+  app.put('/api/team-users/:id/terrain-modules', { preHandler: requireRole(TEAM_ACCESS_ROLES) }, async (request, reply) => {
     const { id } = request.params as { id: string };
     const { modules } = request.body as { modules?: string[] };
     if (!Array.isArray(modules)) return reply.code(400).send({ error: 'modules array required' });

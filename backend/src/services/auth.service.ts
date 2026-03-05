@@ -8,3 +8,9 @@ export function verifyPassword(user: User, password: string): boolean {
   if (expected.length !== candidate.length) return false;
   return crypto.timingSafeEqual(expected, candidate);
 }
+
+export function hashPassword(password: string): { salt: string; hash: string } {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(String(password), salt, 64).toString('hex');
+  return { salt, hash };
+}

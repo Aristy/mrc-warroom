@@ -1,0 +1,529 @@
+{
+  "updatedAt": "2026-03-01T00:00:00.000Z",
+  "departments": [
+    {
+      "id": "CGBZV",
+      "name": "Brazzaville",
+      "arrondissements": [
+        {
+          "id": "CGBZV-MAK",
+          "name": "Makelekele",
+          "zones": [
+            {
+              "id": "CGBZV-MAK-01",
+              "name": "Zone Centre",
+              "centers": [
+                {
+                  "id": "CGBZV-MAK-C1",
+                  "name": "Centre Mak Centre"
+                },
+                {
+                  "id": "CGBZV-MAK-C2",
+                  "name": "Centre Mak Sud"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-BAC",
+          "name": "Bacongo",
+          "zones": [
+            {
+              "id": "CGBZV-BAC-01",
+              "name": "Zone Bacongo",
+              "centers": [
+                {
+                  "id": "CGBZV-BAC-C1",
+                  "name": "Centre Bacongo 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-POT",
+          "name": "Poto-Poto",
+          "zones": [
+            {
+              "id": "CGBZV-POT-01",
+              "name": "Zone Poto-Poto",
+              "centers": [
+                {
+                  "id": "CGBZV-POT-C1",
+                  "name": "Centre Poto-Poto 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-MOU",
+          "name": "Moungali",
+          "zones": [
+            {
+              "id": "CGBZV-MOU-01",
+              "name": "Zone Moungali",
+              "centers": [
+                {
+                  "id": "CGBZV-MOU-C1",
+                  "name": "Centre Moungali 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-OUE",
+          "name": "Ouenze",
+          "zones": [
+            {
+              "id": "CGBZV-OUE-01",
+              "name": "Zone Ouenze",
+              "centers": [
+                {
+                  "id": "CGBZV-OUE-C1",
+                  "name": "Centre Ouenze 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-TAL",
+          "name": "Talangai",
+          "zones": [
+            {
+              "id": "CGBZV-TAL-01",
+              "name": "Zone Talangai",
+              "centers": [
+                {
+                  "id": "CGBZV-TAL-C1",
+                  "name": "Centre Talangai 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-MFI",
+          "name": "Mfilou",
+          "zones": [
+            {
+              "id": "CGBZV-MFI-01",
+              "name": "Zone Mfilou",
+              "centers": [
+                {
+                  "id": "CGBZV-MFI-C1",
+                  "name": "Centre Mfilou 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-MAD",
+          "name": "Madibou",
+          "zones": [
+            {
+              "id": "CGBZV-MAD-01",
+              "name": "Zone Madibou",
+              "centers": [
+                {
+                  "id": "CGBZV-MAD-C1",
+                  "name": "Centre Madibou 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CGBZV-DJI",
+          "name": "Djiri",
+          "zones": [
+            {
+              "id": "CGBZV-DJI-01",
+              "name": "Zone Djiri",
+              "centers": [
+                {
+                  "id": "CGBZV-DJI-C1",
+                  "name": "Centre Djiri 1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG16",
+      "name": "Pointe-Noire",
+      "arrondissements": [
+        {
+          "id": "CG16-LUM",
+          "name": "Lumumba",
+          "zones": [
+            {
+              "id": "CG16-LUM-01",
+              "name": "Zone Lumumba",
+              "centers": [
+                {
+                  "id": "CG16-LUM-C1",
+                  "name": "Centre Lumumba 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CG16-MVO",
+          "name": "Mvoumvou",
+          "zones": [
+            {
+              "id": "CG16-MVO-01",
+              "name": "Zone Mvoumvou",
+              "centers": [
+                {
+                  "id": "CG16-MVO-C1",
+                  "name": "Centre Mvoumvou 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CG16-TIE",
+          "name": "Tie-Tie",
+          "zones": [
+            {
+              "id": "CG16-TIE-01",
+              "name": "Zone Tie-Tie",
+              "centers": [
+                {
+                  "id": "CG16-TIE-C1",
+                  "name": "Centre Tie-Tie 1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CG16-LOA",
+          "name": "Loandjili",
+          "zones": [
+            {
+              "id": "CG16-LOA-01",
+              "name": "Zone Loandjili",
+              "centers": [
+                {
+                  "id": "CG16-LOA-C1",
+                  "name": "Centre Loandjili 1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG11",
+      "name": "Bouenza",
+      "arrondissements": [
+        {
+          "id": "CG11-MAD",
+          "name": "Madingou",
+          "zones": [
+            {
+              "id": "CG11-MAD-01",
+              "name": "Zone Madingou",
+              "centers": [
+                {
+                  "id": "CG11-MAD-C1",
+                  "name": "Centre Madingou"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG8",
+      "name": "Cuvette Centrale",
+      "arrondissements": [
+        {
+          "id": "CG8-OWA",
+          "name": "Owando",
+          "zones": [
+            {
+              "id": "CG8-OWA-01",
+              "name": "Zone Owando",
+              "centers": [
+                {
+                  "id": "CG8-OWA-C1",
+                  "name": "Centre Owando"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG15",
+      "name": "Cuvette Ouest",
+      "arrondissements": [
+        {
+          "id": "CG15-EWO",
+          "name": "Ewo",
+          "zones": [
+            {
+              "id": "CG15-EWO-01",
+              "name": "Zone Ewo",
+              "centers": [
+                {
+                  "id": "CG15-EWO-C1",
+                  "name": "Centre Ewo"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG5",
+      "name": "Kouilou",
+      "arrondissements": [
+        {
+          "id": "CG5-LOA",
+          "name": "Loango",
+          "zones": [
+            {
+              "id": "CG5-LOA-01",
+              "name": "Zone Loango",
+              "centers": [
+                {
+                  "id": "CG5-LOA-C1",
+                  "name": "Centre Loango"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG2",
+      "name": "Lekoumou",
+      "arrondissements": [
+        {
+          "id": "CG2-SIB",
+          "name": "Sibiti",
+          "zones": [
+            {
+              "id": "CG2-SIB-01",
+              "name": "Zone Sibiti",
+              "centers": [
+                {
+                  "id": "CG2-SIB-C1",
+                  "name": "Centre Sibiti"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG9",
+      "name": "Niari",
+      "arrondissements": [
+        {
+          "id": "CG9-DOL",
+          "name": "Dolisie",
+          "zones": [
+            {
+              "id": "CG9-DOL-01",
+              "name": "Zone Dolisie",
+              "centers": [
+                {
+                  "id": "CG9-DOL-C1",
+                  "name": "Centre Dolisie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG14",
+      "name": "Plateaux",
+      "arrondissements": [
+        {
+          "id": "CG14-DJA",
+          "name": "Djambala",
+          "zones": [
+            {
+              "id": "CG14-DJA-01",
+              "name": "Zone Djambala",
+              "centers": [
+                {
+                  "id": "CG14-DJA-C1",
+                  "name": "Centre Djambala"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG7",
+      "name": "Likouala",
+      "arrondissements": [
+        {
+          "id": "CG7-IMP",
+          "name": "Impfondo",
+          "zones": [
+            {
+              "id": "CG7-IMP-01",
+              "name": "Impfondo Centre",
+              "centers": [
+                {
+                  "id": "CG7-IMP-C1",
+                  "name": "Centre Impfondo Centre"
+                },
+                {
+                  "id": "CG7-IMP-C2",
+                  "name": "Centre Impfondo Nord"
+                }
+              ]
+            },
+            {
+              "id": "CG7-IMP-02",
+              "name": "Impfondo Peripherie",
+              "centers": [
+                {
+                  "id": "CG7-IMP-C3",
+                  "name": "Centre Impfondo Sud"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG13",
+      "name": "Sangha",
+      "arrondissements": [
+        {
+          "id": "CG13-OUE",
+          "name": "Ouesso",
+          "zones": [
+            {
+              "id": "CG13-OUE-01",
+              "name": "Zone Ouesso",
+              "centers": [
+                {
+                  "id": "CG13-OUE-C1",
+                  "name": "Centre Ouesso"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG8-CO",
+      "name": "Congo-Oubangui",
+      "arrondissements": [
+        {
+          "id": "CG8-CO-MOS",
+          "name": "Mossaka",
+          "zones": [
+            {
+              "id": "CG8-CO-MOS-01",
+              "name": "Zone Mossaka",
+              "centers": [
+                {
+                  "id": "CG8-CO-MOS-C1",
+                  "name": "Centre Mossaka"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG14-KA",
+      "name": "Keni-Alima",
+      "arrondissements": [
+        {
+          "id": "CG14-KA-GAM",
+          "name": "Gamboma",
+          "zones": [
+            {
+              "id": "CG14-KA-GAM-01",
+              "name": "Zone Gamboma",
+              "centers": [
+                {
+                  "id": "CG14-KA-GAM-C1",
+                  "name": "Centre Gamboma"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG12-DL",
+      "name": "Dje-Lefini",
+      "arrondissements": [
+        {
+          "id": "CG12-DL-ODZ",
+          "name": "Odziba",
+          "zones": [
+            {
+              "id": "CG12-DL-ODZ-01",
+              "name": "Zone Odziba",
+              "centers": [
+                {
+                  "id": "CG12-DL-ODZ-C1",
+                  "name": "Centre Odziba"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CG12",
+      "name": "Pool",
+      "arrondissements": [
+        {
+          "id": "CG12-KIN",
+          "name": "Kinkala",
+          "zones": [
+            {
+              "id": "CG12-KIN-01",
+              "name": "Zone Kinkala",
+              "centers": [
+                {
+                  "id": "CG12-KIN-C1",
+                  "name": "Centre Kinkala"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

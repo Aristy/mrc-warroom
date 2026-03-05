@@ -6,6 +6,51 @@ import type { User } from '../db/queries/users.js';
 import { buildWarRoomCampaignSummary, buildMemberEnrollmentResponse, buildCampaignResponse, getPollingSupportValue, getTerrainDoorsValue, getTerrainMeetingsValue } from './campaign.service.js';
 import { normalizeKey, buildTerritoryResponse, readTerritoryData } from './territory.service.js';
 
+interface RawRegion {
+  id: string;
+  name: string;
+  districts?: string[];
+  zones?: string[];
+  stats?: {
+    risk?: string;
+    agents?: number;
+    missions?: number;
+    incidents?: number;
+  };
+  events?: RegionHighlight[];
+}
+
+interface RegionHighlight {
+  time?: string;
+  type?: string;
+  status?: string;
+  summary?: string;
+  zone?: string;
+}
+
+interface CandidateRegion {
+  id: string;
+  name: string;
+  districts: string[];
+  zones: string[];
+  risk: string;
+  mobilisation: number;
+  missions: number;
+  incidents: number;
+  memberEnrollments: number;
+  pollingAverage: number;
+  terrainDoors: number;
+  terrainMeetings: number;
+  digitalViews: number;
+  digitalRelay: number;
+  mediaReach: number;
+  mediaPublished: number;
+  mediaSensitive: number;
+  eventsPublished: number;
+  strategicEvents: number;
+  highlights: RegionHighlight[];
+}
+
 function normalizeRisk(priority: string): string {
   const v = String(priority || '').trim().toLowerCase();
   if (v === 'critical' || v === 'high') return 'high';
@@ -33,8 +78,8 @@ export function buildCandidateBrief(warRoomData: any, campaignItems: CampaignRec
 
   const publishedMemberEnrollments = memberEnrollments.filter(i => i.status === 'published');
   const campaign = buildWarRoomCampaignSummary(campaignItems, publishedMemberEnrollments);
-  const rawRegions = Array.isArray(warRoomData?.map?.regions) ? warRoomData.map.regions : [];
-  const regionLookup = new Map(rawRegions.map((r: { name: string; id: string }) => [normalizeKey(r.name), r.id]));
+  const rawRegions: RawRegion[] = Array.isArray(warRoomData?.map?.regions) ? warRoomData.map.regions : [];
+  const regionLookup = new Map<string, string>(rawRegions.map((r) => [normalizeKey(r.name), r.id]));
 
   const memberDepartmentRollup: Record<string, { departmentId: string; departmentName: string; total: number }> = {};
   publishedMemberEnrollments.forEach(item => {
@@ -75,7 +120,7 @@ export function buildCandidateBrief(warRoomData: any, campaignItems: CampaignRec
     if (String(item.tone || '').toLowerCase() === 'sensible') rollup.mediaSensitive++;
   });
 
-  const regions = rawRegions.map((region: { id: string; name: string; districts?: string[]; zones?: string[]; stats?: { risk?: string; agents?: number; missions?: number; incidents?: number }; events?: unknown[] }) => {
+  const regions: CandidateRegion[] = rawRegions.map((region) => {
     const rollup = rollupByDepartment[region.id] || ensureRollup(region.id, region.name);
     const pollingAverage = rollup.pollingCount > 0 ? Math.round((rollup.pollingTotal / rollup.pollingCount) * 10) / 10 : 0;
     return {
@@ -91,7 +136,7 @@ export function buildCandidateBrief(warRoomData: any, campaignItems: CampaignRec
       digitalViews: rollup.digitalViews, digitalRelay: rollup.digitalRelay,
       mediaReach: rollup.mediaReach, mediaPublished: rollup.mediaPublished, mediaSensitive: rollup.mediaSensitive,
       eventsPublished: rollup.eventsPublished, strategicEvents: rollup.strategicEvents,
-      highlights: Array.isArray(region.events) ? (region.events as { time?: string; type?: string; status?: string; summary?: string; zone?: string }[]).slice(0, 3).map(e => ({ time: e.time, type: e.type, status: e.status, summary: e.summary, zone: e.zone || '-' })) : [],
+      highlights: Array.isArray(region.events) ? region.events.slice(0, 3).map((e) => ({ time: e.time, type: e.type, status: e.status, summary: e.summary, zone: e.zone || '-' })) : [],
     };
   });
 
@@ -116,7 +161,7 @@ export function buildCandidateBrief(warRoomData: any, campaignItems: CampaignRec
   const adhesionByDepartment = Object.values(memberDepartmentRollup).sort((a, b) => b.total - a.total).slice(0, 6);
 
   const timeline = [
-    ...regions.flatMap(r => r.highlights.map((h: { time?: string; type?: string; status?: string; summary?: string; zone?: string }) => ({ regionId: r.id, region: r.name, sourceType: 'region_event', ...h }))),
+    ...regions.flatMap((r) => r.highlights.map((h) => ({ regionId: r.id, region: r.name, sourceType: 'region_event', ...h }))),
     ...(Array.isArray(warRoomData?.incidents24h) ? warRoomData.incidents24h.map((i: { lieu?: string; heure?: string; type?: string; gravite?: string; statut?: string }) => ({ regionId: '', region: i.lieu || '-', sourceType: 'incident', time: i.heure || '', type: i.type || 'Incident', status: i.gravite || i.statut || 'Medium', summary: `${i.lieu || '-'} | ${i.type || 'Incident'} | ${i.statut || '-'}`, zone: i.lieu || '-' })) : []),
     ...sortedEvents.slice(0, 10).map(e => ({ regionId: e.departmentId || '', region: e.departmentName || '-', sourceType: 'event', time: e.startTime || e.eventDate || e.publishedAt || e.updatedAt || e.createdAt, type: e.isStrategic ? 'Evenement strategique' : 'Evenement publie', status: e.impactLevel || e.tone || 'Publie', summary: e.title, zone: e.zoneName || e.arrondissementName || '-' })),
     ...sortedMedia.slice(0, 10).map(m => ({ regionId: m.departmentId || '', region: m.departmentName || '-', sourceType: 'media', time: m.publishedAt || m.updatedAt || m.createdAt, type: `Media ${m.sourceType || ''}`.trim(), status: m.tone || 'neutre', summary: m.title, zone: m.zoneName || m.arrondissementName || '-' })),

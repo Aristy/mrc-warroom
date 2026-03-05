@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.js';
+import { useTheme } from '../../context/ThemeContext.js';
 import type { Role } from '../../types/domain.js';
 
 interface NavItem { label: string; path: string; roles: Role[]; }
@@ -21,40 +22,61 @@ const NAV: NavItem[] = [
 
 export default function AppShell({ children }: { children: ReactNode }) {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
   const visible = NAV.filter(n => user && n.roles.includes(user.role));
+  const isDark = theme === 'dark';
+
+  const bg = isDark ? '#0f1117' : '#f0f2f8';
+  const sidebarBg = isDark ? '#1a1d27' : '#ffffff';
+  const borderColor = isDark ? '#2a2d3a' : '#d1d5db';
+  const textColor = isDark ? '#e8eaf0' : '#1a1d27';
+  const mutedColor = isDark ? '#8b8fa8' : '#6b7280';
+  const activeItemBg = isDark ? '#9a1f1f22' : '#9a1f1f14';
 
   async function handleLogout() { await logout(); navigate('/login'); }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, sans-serif', background: '#0f1117', color: '#e8eaf0' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, sans-serif', background: bg, color: textColor }}>
       {/* Sidebar */}
-      <nav style={{ width: 220, background: '#1a1d27', borderRight: '1px solid #2a2d3a', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-        <div style={{ padding: '20px 16px 16px', borderBottom: '1px solid #2a2d3a' }}>
+      <nav style={{ width: 220, background: sidebarBg, borderRight: `1px solid ${borderColor}`, display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <div style={{ padding: '20px 16px 16px', borderBottom: `1px solid ${borderColor}` }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: '#9a1f1f' }}>MRC War Room</div>
-          <div style={{ fontSize: 11, color: '#8b8fa8', marginTop: 2 }}>2026</div>
+          <div style={{ fontSize: 11, color: mutedColor, marginTop: 2 }}>2026</div>
         </div>
         <div style={{ flex: 1, padding: '12px 0', overflowY: 'auto' }}>
           {visible.map(n => (
-            <Link key={n.path} to={n.path} style={{ display: 'block', padding: '9px 16px', fontSize: 13, fontWeight: 500, textDecoration: 'none', color: location.pathname === n.path ? '#e8eaf0' : '#8b8fa8', background: location.pathname === n.path ? '#9a1f1f22' : 'transparent', borderLeft: location.pathname === n.path ? '3px solid #9a1f1f' : '3px solid transparent', transition: 'all 0.15s' }}>
+            <Link key={n.path} to={n.path} style={{
+              display: 'block', padding: '9px 16px', fontSize: 13, fontWeight: 500, textDecoration: 'none',
+              color: location.pathname === n.path ? textColor : mutedColor,
+              background: location.pathname === n.path ? activeItemBg : 'transparent',
+              borderLeft: location.pathname === n.path ? '3px solid #9a1f1f' : '3px solid transparent',
+              transition: 'all 0.15s',
+            }}>
               {n.label}
             </Link>
           ))}
         </div>
         {user && (
-          <div style={{ padding: '12px 16px', borderTop: '1px solid #2a2d3a' }}>
-            <div style={{ fontSize: 12, color: '#e8eaf0', fontWeight: 500, marginBottom: 2 }}>{user.name}</div>
-            <div style={{ fontSize: 11, color: '#8b8fa8', marginBottom: 10 }}>{user.roleName}</div>
-            <button onClick={handleLogout} style={{ background: 'transparent', border: '1px solid #2a2d3a', borderRadius: 6, color: '#8b8fa8', cursor: 'pointer', fontSize: 12, padding: '6px 10px', width: '100%' }}>
+          <div style={{ padding: '12px 16px', borderTop: `1px solid ${borderColor}` }}>
+            <div style={{ fontSize: 12, color: textColor, fontWeight: 500, marginBottom: 2 }}>{user.name}</div>
+            <div style={{ fontSize: 11, color: mutedColor, marginBottom: 8 }}>{user.roleName}</div>
+            <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+              <button onClick={toggleTheme} title={isDark ? 'Mode clair' : 'Mode sombre'}
+                style={{ flex: 1, background: 'transparent', border: `1px solid ${borderColor}`, borderRadius: 6, color: mutedColor, cursor: 'pointer', fontSize: 14, padding: '5px 0' }}>
+                {isDark ? '☀️' : '🌙'}
+              </button>
+            </div>
+            <button onClick={handleLogout} style={{ background: 'transparent', border: `1px solid ${borderColor}`, borderRadius: 6, color: mutedColor, cursor: 'pointer', fontSize: 12, padding: '6px 10px', width: '100%' }}>
               Déconnexion
             </button>
           </div>
         )}
       </nav>
       {/* Main */}
-      <main style={{ flex: 1, overflowY: 'auto' }}>
+      <main style={{ flex: 1, overflowY: 'auto', background: bg }}>
         <div style={{ padding: '20px 0 0' }}>{children}</div>
       </main>
     </div>

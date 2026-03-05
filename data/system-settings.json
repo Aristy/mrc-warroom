@@ -1,0 +1,10 @@
+{
+  "platformName": "MRC Operations Platform",
+  "candidateName": "Denis Sassou Nguesso",
+  "mobileAppName": "DSN2026",
+  "candidateDashboardPath": "/candidate",
+  "mobileDefaultBackendUrl": "http://169.255.58.148",
+  "operationalMessage": "",
+  "environmentMode": "production",
+  "updatedAt": "2026-03-04T06:22:08.827Z"
+}
