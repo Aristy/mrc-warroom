@@ -14,6 +14,7 @@ const NAV: NavItem[] = [
   { label: 'Adhésions', path: '/members', roles: ['war_room', 'regional_coordinator', 'zone_leader', 'membership_data_entry'] },
   { label: 'Médias', path: '/media', roles: ['war_room', 'regional_coordinator', 'zone_leader', 'direction'] },
   { label: 'Sondages', path: '/polling', roles: ['war_room', 'regional_coordinator'] },
+  { label: 'Logistique', path: '/logistique', roles: ['war_room', 'regional_coordinator', 'direction'] },
   { label: 'Réseaux sociaux', path: '/social', roles: ['war_room', 'regional_coordinator', 'direction'] },
   { label: 'Territoire', path: '/territory', roles: ['war_room', 'regional_coordinator', 'direction'] },
   { label: 'Équipes', path: '/teams', roles: ['war_room', 'regional_coordinator', 'direction'] },

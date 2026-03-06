@@ -13,6 +13,7 @@ import Teams from './pages/Teams.js';
 import Territory from './pages/Territory.js';
 import Social from './pages/Social.js';
 import PollingReview from './pages/PollingReview.js';
+import Logistique from './pages/Logistique.js';
 import SystemAdmin from './pages/SystemAdmin.js';
 import type { ReactNode } from 'react';
 
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/territory" element={<Protected><Territory /></Protected>} />
           <Route path="/social" element={<Protected><Social /></Protected>} />
           <Route path="/polling" element={<Protected><PollingReview /></Protected>} />
+          <Route path="/logistique" element={<Protected><Logistique /></Protected>} />
           <Route path="/admin" element={<Protected><SystemAdmin /></Protected>} />
           <Route path="*" element={<DefaultRedirect />} />
         </Routes>

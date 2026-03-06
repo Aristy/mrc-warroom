@@ -191,7 +191,12 @@ export function createEmptyWarRoomData() {
 }
 
 export function buildWarRoomDashboard(warRoomData: unknown, campaignItems: CampaignRecord[], memberEnrollments: MemberEnrollment[]) {
-  const campaign = buildWarRoomCampaignSummary(campaignItems, memberEnrollments);
+  const dbCampaign = buildWarRoomCampaignSummary(campaignItems, memberEnrollments);
+  // When DB has no records yet, use seed/runtime values from war-room.json as display data
+  const seedCampaign = (warRoomData as Record<string, unknown>)?.campaign as Record<string, number> | undefined;
+  const campaign = (campaignItems.length === 0 && memberEnrollments.length === 0 && seedCampaign)
+    ? seedCampaign
+    : { ...seedCampaign, ...dbCampaign };
   return { ...(warRoomData as object), campaign, meta: { source: 'live', generatedAt: new Date().toISOString() } };
 }
 

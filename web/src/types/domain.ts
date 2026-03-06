@@ -79,7 +79,8 @@ export interface TerritoryCenter { id: string; name: string; zoneId: string; zon
 // Dashboard types
 export interface WarRoomKpis { missions: { objectifJour: number; missionsEngagees: number; tauxRealisation: number }; terrain: { portesAPorte: { done: number; target: number }; meetingsConfirmes: number }; digital: { vuesVideo: number; whatsappRelay: number }; logistique: { transportPrevuCamions: number; risques24h: number }; }
 export interface WarRoomRegion { id: string; name: string; districts: string[]; zones: string[]; stats: { agents: number; missions: number; incidents: number; risk: AlertLevel }; events: unknown[]; }
-export interface WarRoomData { alert: { level: AlertLevel }; kpis: WarRoomKpis; map: { zonesChaudes: number; zonesFaibles: number; actionDuJour: string; regions: WarRoomRegion[] }; priorities: Priority[]; incidents24h: Incident24h[]; calendarToday: CalendarItem[]; campaign: CampaignSummary; meta?: { source: string; generatedAt: string }; }
+export interface ProgrammeStop { date: string; lieu: string; departement: string; regionId: string; type: 'visite' | 'nuit' | 'retour'; nuit: boolean; }
+export interface WarRoomData { alert: { level: AlertLevel }; kpis: WarRoomKpis; map: { zonesChaudes: number; zonesFaibles: number; actionDuJour: string; regions: WarRoomRegion[] }; priorities: Priority[]; incidents24h: Incident24h[]; calendarToday: CalendarItem[]; campaign: CampaignSummary; candidateProgramme?: ProgrammeStop[]; meta?: { source: string; generatedAt: string }; }
 export interface Priority { regionId: string; region: string; percent: number; risk: AlertLevel; action: string; }
 export interface Incident24h { heure: string; type: string; lieu: string; gravite: string; statut: string; }
 export interface CalendarItem { time: string; type: string; lieu: string; responsable: string; }

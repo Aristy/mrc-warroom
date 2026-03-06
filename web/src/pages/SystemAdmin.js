@@ -162,16 +162,102 @@ function CandidateForm({ initial, onSubmit, onCancel, }) {
                                 }) })] }), _jsxs("div", { style: { display: 'flex', gap: 8 }, children: [_jsx("button", { type: "submit", className: "sa-btn sa-btn-primary", children: initial ? 'Enregistrer' : 'Créer' }), _jsx("button", { type: "button", className: "sa-btn-ghost", onClick: onCancel, children: "Annuler" })] })] })] }));
 }
 // ─── TAB: UTILISATEURS ────────────────────────────────────────────────────────
+const ALL_ROLES = [
+    { value: 'war_room', label: 'War Room Admin' },
+    { value: 'direction', label: 'Direction' },
+    { value: 'regional_coordinator', label: 'Coordinateur régional' },
+    { value: 'zone_leader', label: 'Chef de Zone' },
+    { value: 'field_agent', label: 'Agent Terrain' },
+    { value: 'membership_data_entry', label: 'Saisie Adhésion' },
+    { value: 'candidate', label: 'Candidat' },
+];
+function UserForm({ initial, onSubmit, onCancel, }) {
+    const [username, setUsername] = useState(initial?.username ?? '');
+    const [name, setName] = useState(initial?.name ?? '');
+    const [email, setEmail] = useState(initial?.email ?? '');
+    const [role, setRole] = useState(initial?.role ?? 'field_agent');
+    const [dept, setDept] = useState(initial?.scopeDepartmentName ?? '');
+    const [password, setPassword] = useState('');
+    const [showPwd, setShowPwd] = useState(false);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const payload = { name, email, role: role };
+        if (!initial)
+            payload.username = username;
+        if (password)
+            payload.password = password;
+        if (dept)
+            payload.scopeDepartmentName = dept;
+        onSubmit(payload);
+    };
+    const inputStyle = {
+        background: 'var(--bg, #0f1117)', border: '1px solid var(--border, #374151)',
+        borderRadius: 8, padding: '9px 12px', color: 'var(--text, #f1f5f9)', fontSize: 13,
+        width: '100%', boxSizing: 'border-box',
+    };
+    const selectStyle = { ...inputStyle, cursor: 'pointer' };
+    return (_jsxs("div", { className: "form-modal", style: { marginBottom: 20 }, children: [_jsx("div", { className: "sa-label", children: initial ? `Modifier — ${initial.name}` : 'Nouvel utilisateur' }), _jsxs("form", { onSubmit: handleSubmit, children: [!initial && (_jsxs("div", { className: "form-row", children: [_jsx("label", { children: "Identifiant *" }), _jsxs("div", { style: { flex: 1 }, children: [_jsx("input", { style: inputStyle, value: username, onChange: e => setUsername(e.target.value), required: true, placeholder: "ex: zone.likouala" }), _jsx("div", { style: { fontSize: 11, color: 'var(--text-muted, #6b7280)', marginTop: 4 }, children: "Ne peut pas \u00EAtre modifi\u00E9 apr\u00E8s cr\u00E9ation. Minuscules, chiffres et points uniquement." })] })] })), initial && (_jsxs("div", { className: "form-row", children: [_jsx("label", { children: "Identifiant" }), _jsxs("div", { style: { flex: 1, fontFamily: 'monospace', fontSize: 13, color: 'var(--text-muted, #9ca3af)',
+                                    background: 'var(--surface2, #1c2333)', borderRadius: 8, padding: '9px 12px',
+                                    border: '1px solid var(--border, #374151)' }, children: [initial.username, _jsx("span", { style: { marginLeft: 8, fontSize: 10, color: '#6b7280' }, children: "(immuable)" })] })] })), _jsxs("div", { className: "form-row", children: [_jsx("label", { children: "Nom complet *" }), _jsx("input", { style: inputStyle, value: name, onChange: e => setName(e.target.value), required: true })] }), _jsxs("div", { className: "form-row", children: [_jsx("label", { children: "Email" }), _jsx("input", { style: inputStyle, type: "email", value: email, onChange: e => setEmail(e.target.value) })] }), _jsxs("div", { className: "form-row", children: [_jsx("label", { children: "R\u00F4le *" }), _jsx("select", { style: selectStyle, value: role, onChange: e => setRole(e.target.value), required: true, children: ALL_ROLES.map(r => _jsx("option", { value: r.value, children: r.label }, r.value)) })] }), _jsxs("div", { className: "form-row", children: [_jsx("label", { children: "D\u00E9partement" }), _jsx("input", { style: inputStyle, value: dept, onChange: e => setDept(e.target.value), placeholder: "ex: Brazzaville, Pointe-Noire\u2026" })] }), _jsxs("div", { className: "form-row", children: [_jsx("label", { children: initial ? 'Nouveau mot de passe' : 'Mot de passe *' }), _jsxs("div", { style: { flex: 1, position: 'relative' }, children: [_jsx("input", { style: { ...inputStyle, paddingRight: 80 }, type: showPwd ? 'text' : 'password', value: password, onChange: e => setPassword(e.target.value), required: !initial, placeholder: initial ? 'Laisser vide pour ne pas changer' : 'Min. 8 caractères' }), _jsx("button", { type: "button", onClick: () => setShowPwd(v => !v), style: { position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)',
+                                            background: 'transparent', border: 'none', color: 'var(--text-muted, #9ca3af)',
+                                            cursor: 'pointer', fontSize: 11, fontWeight: 600 }, children: showPwd ? 'Masquer' : 'Voir' })] })] }), _jsxs("div", { style: { display: 'flex', gap: 8, marginTop: 4 }, children: [_jsx("button", { type: "submit", className: "sa-btn sa-btn-primary", children: initial ? 'Enregistrer' : 'Créer' }), _jsx("button", { type: "button", className: "sa-btn-ghost", onClick: onCancel, children: "Annuler" })] })] })] }));
+}
 function TabUsers() {
-    const { data: users, loading } = useApi(() => usersApi.list(), []);
+    const { data: users, loading, refresh } = useApi(() => usersApi.list(), []);
+    const [showForm, setShowForm] = useState(false);
+    const [editing, setEditing] = useState(null);
+    const [err, setErr] = useState('');
+    const [filterRole, setFilterRole] = useState('');
+    const userList = users ?? [];
+    const filtered = filterRole ? userList.filter(u => u.role === filterRole) : userList;
+    const handleCreate = async (payload) => {
+        setErr('');
+        try {
+            await usersApi.create(payload);
+            refresh();
+            setShowForm(false);
+        }
+        catch (e) {
+            setErr(e?.body?.error || 'Erreur lors de la création');
+        }
+    };
+    const handleUpdate = async (id, payload) => {
+        setErr('');
+        try {
+            await usersApi.update(id, payload);
+            refresh();
+            setEditing(null);
+        }
+        catch {
+            setErr('Erreur lors de la mise à jour');
+        }
+    };
+    const handleDelete = async (u) => {
+        if (!confirm(`Supprimer l'utilisateur "${u.name}" (${u.username}) ?\n\nSes sessions seront révoquées.`))
+            return;
+        try {
+            await usersApi.delete(u.id);
+            refresh();
+        }
+        catch {
+            setErr('Erreur lors de la suppression');
+        }
+    };
     if (loading)
         return _jsx("div", { style: { color: 'var(--text-muted)', padding: 40, textAlign: 'center' }, children: "Chargement\u2026" });
-    const userList = users ?? [];
-    return (_jsx("div", { className: "sa-card", style: { padding: 0 }, children: _jsxs("table", { className: "sa-table", children: [_jsx("thead", { children: _jsxs("tr", { children: [_jsx("th", { children: "Nom" }), _jsx("th", { children: "Identifiant" }), _jsx("th", { children: "R\u00F4le" }), _jsx("th", { children: "D\u00E9partement" })] }) }), _jsx("tbody", { children: userList.map(u => (_jsxs("tr", { children: [_jsxs("td", { children: [_jsx("div", { style: { fontWeight: 600 }, children: u.name }), _jsx("div", { style: { fontSize: 11, color: 'var(--text-muted, #9ca3af)' }, children: u.email })] }), _jsx("td", { style: { fontFamily: 'monospace', fontSize: 12, color: 'var(--text-muted, #9ca3af)' }, children: u.username }), _jsx("td", { children: _jsx("span", { className: "role-pill", style: {
-                                        background: `${ROLE_COLORS[u.role] || '#6b7280'}22`,
-                                        color: ROLE_COLORS[u.role] || '#9ca3af',
-                                        border: `1px solid ${ROLE_COLORS[u.role] || '#6b7280'}66`,
-                                    }, children: ROLE_LABELS[u.role] || u.role }) }), _jsxs("td", { style: { color: 'var(--text-muted, #9ca3af)', fontSize: 12 }, children: [u.scopeDepartmentName || '—', u.scopeArrondissementName ? ` / ${u.scopeArrondissementName}` : ''] })] }, u.id))) })] }) }));
+    return (_jsxs(_Fragment, { children: [_jsxs("div", { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, gap: 12, flexWrap: 'wrap' }, children: [_jsxs("div", { style: { display: 'flex', gap: 8, alignItems: 'center' }, children: [_jsxs("span", { style: { fontSize: 13, color: 'var(--text-muted, #9ca3af)' }, children: [filtered.length, " utilisateur(s)"] }), _jsxs("select", { value: filterRole, onChange: e => setFilterRole(e.target.value), style: {
+                                    background: 'var(--surface2, #1c2333)', border: '1px solid var(--border, #374151)',
+                                    borderRadius: 7, padding: '5px 10px', color: 'var(--text-muted, #9ca3af)', fontSize: 12, cursor: 'pointer',
+                                }, children: [_jsx("option", { value: "", children: "Tous les r\u00F4les" }), ALL_ROLES.map(r => _jsx("option", { value: r.value, children: r.label }, r.value))] })] }), _jsx("button", { className: "sa-btn sa-btn-primary", onClick: () => { setShowForm(true); setEditing(null); }, children: "+ Nouvel utilisateur" })] }), err && _jsx("div", { style: { color: '#fca5a5', background: '#7f1d1d33', padding: '8px 12px', borderRadius: 8, marginBottom: 12, fontSize: 13 }, children: err }), showForm && !editing && (_jsx(UserForm, { onSubmit: handleCreate, onCancel: () => setShowForm(false) })), editing && (_jsx(UserForm, { initial: editing, onSubmit: p => handleUpdate(editing.id, p), onCancel: () => setEditing(null) })), _jsx("div", { className: "sa-card", style: { padding: 0 }, children: _jsxs("table", { className: "sa-table", children: [_jsx("thead", { children: _jsxs("tr", { children: [_jsx("th", { children: "Nom / Email" }), _jsx("th", { children: "Identifiant" }), _jsx("th", { children: "R\u00F4le" }), _jsx("th", { children: "D\u00E9partement" }), _jsx("th", { style: { textAlign: 'right' }, children: "Actions" })] }) }), _jsx("tbody", { children: filtered.length === 0 ? (_jsx("tr", { children: _jsx("td", { colSpan: 5, style: { textAlign: 'center', color: 'var(--text-muted, #9ca3af)', padding: 32 }, children: "Aucun utilisateur" }) })) : filtered.map(u => (_jsxs("tr", { children: [_jsxs("td", { children: [_jsx("div", { style: { fontWeight: 600 }, children: u.name }), _jsx("div", { style: { fontSize: 11, color: 'var(--text-muted, #9ca3af)' }, children: u.email || '—' })] }), _jsx("td", { children: _jsx("span", { style: { fontFamily: 'monospace', fontSize: 12, background: 'rgba(0,0,0,0.3)', padding: '2px 8px', borderRadius: 5, color: 'var(--text-muted, #c0cfe4)' }, children: u.username }) }), _jsx("td", { children: _jsx("span", { className: "role-pill", style: {
+                                                background: `${ROLE_COLORS[u.role] || '#6b7280'}22`,
+                                                color: ROLE_COLORS[u.role] || '#9ca3af',
+                                                border: `1px solid ${ROLE_COLORS[u.role] || '#6b7280'}55`,
+                                            }, children: ROLE_LABELS[u.role] || u.role }) }), _jsxs("td", { style: { color: 'var(--text-muted, #9ca3af)', fontSize: 12 }, children: [u.scopeDepartmentName || '—', u.scopeArrondissementName ? ` / ${u.scopeArrondissementName}` : ''] }), _jsx("td", { style: { textAlign: 'right' }, children: _jsxs("div", { style: { display: 'flex', gap: 6, justifyContent: 'flex-end' }, children: [_jsx("button", { className: "sa-btn-ghost", onClick: () => { setEditing(u); setShowForm(false); }, children: "Modifier" }), _jsx("button", { className: "sa-btn-ghost", style: { color: '#fca5a5', borderColor: '#7f1d1d55' }, onClick: () => handleDelete(u), children: "Supprimer" })] }) })] }, u.id))) })] }) }), _jsx("div", { style: { marginTop: 12, display: 'flex', flexWrap: 'wrap', gap: 8 }, children: ALL_ROLES.map(r => (_jsx("span", { style: {
+                        fontSize: 10, padding: '2px 8px', borderRadius: 10, fontWeight: 600,
+                        background: `${ROLE_COLORS[r.value] || '#6b7280'}22`,
+                        color: ROLE_COLORS[r.value] || '#9ca3af',
+                        border: `1px solid ${ROLE_COLORS[r.value] || '#6b7280'}44`,
+                    }, children: r.label }, r.value))) })] }));
 }
 // ─── TAB: APPARENCE ───────────────────────────────────────────────────────────
 function TabAppearance({ theme, fontSize, setFontSize, toggleTheme }) {

@@ -83,6 +83,13 @@ export async function systemRoutes(app: FastifyInstance): Promise<void> {
     return reply.send({ clearedAt: new Date().toISOString() });
   });
 
+  // Logistics
+  app.get('/api/logistics', { preHandler: requireRole(['war_room', 'direction', 'regional_coordinator']) }, async (_req, reply) => {
+    const warRoomData = readJsonFile(WAR_ROOM_RUNTIME_FILE) as Record<string, unknown> | null;
+    const logistique = warRoomData?.logistique ?? {};
+    return reply.send(logistique);
+  });
+
   // User management
   app.get('/api/system/users', { preHandler: requireRole(SYSTEM_ADMIN_ROLES) }, async (_req, reply) => {
     return reply.send(readUsers().map(sanitizeUser));

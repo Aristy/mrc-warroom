@@ -1,59 +1,117 @@
 {
-  "alert": {
-    "level": "normal"
-  },
+  "alert": { "level": "vigilance" },
   "kpis": {
-    "missions": {
-      "objectifJour": 0,
-      "missionsEngagees": 0,
-      "tauxRealisation": 0
-    },
-    "terrain": {
-      "portesAPorte": {
-        "done": 0,
-        "target": 0
-      },
-      "meetingsConfirmes": 0
-    },
-    "digital": {
-      "vuesVideo": 0,
-      "whatsappRelay": 0
-    },
-    "logistique": {
-      "transportPrevuCamions": 0,
-      "risques24h": 0
-    }
+    "missions": { "objectifJour": 180, "missionsEngagees": 126, "tauxRealisation": 70 },
+    "terrain": { "portesAPorte": { "done": 1180, "target": 2200 }, "meetingsConfirmes": 41 },
+    "digital": { "vuesVideo": 8093, "whatsappRelay": 520 },
+    "logistique": { "transportPrevuCamions": 18, "risques24h": 14 }
   },
   "map": {
-    "zonesChaudes": 0,
-    "zonesFaibles": 0,
-    "actionDuJour": "",
-    "regions": []
+    "zonesChaudes": 3,
+    "zonesFaibles": 2,
+    "actionDuJour": "Consolider Pointe-Noire, protéger Likouala et convertir Brazzaville",
+    "regions": [
+      { "id": "CGBZV", "name": "Brazzaville", "districts": ["Makélékélé","Bacongo","Poto-Poto","Moungali","Ouenzé","Talangaï","Mfilou","Madibou","Djiri"], "zones": ["Zone Nord","Zone Sud","Zone Centre"], "stats": { "agents": 142, "missions": 38, "incidents": 5, "risk": "high" }, "events": [{ "date": "2026-03-04", "type": "Meeting", "description": "Rassemblement Poto-Poto", "lieu": "Poto-Poto" }] },
+      { "id": "CG16", "name": "Pointe-Noire", "districts": ["Lumumba","Mvoumvou","Tié-Tié","Loandjili"], "zones": ["Zone Côtière","Zone Industrielle"], "stats": { "agents": 98, "missions": 24, "incidents": 8, "risk": "critical" }, "events": [{ "date": "2026-03-04", "type": "Incident", "description": "Perturbation meeting", "lieu": "Lumumba" }] },
+      { "id": "CG8", "name": "Cuvette", "districts": ["Owando","Makoua","Oyo","Mossaka"], "zones": ["Zone Fleuve","Zone Forêt"], "stats": { "agents": 45, "missions": 12, "incidents": 1, "risk": "medium" }, "events": [] },
+      { "id": "CG15", "name": "Cuvette-Ouest", "districts": ["Ewo","Boundji","Kellé","Etoumbi"], "zones": ["Zone Nord-Ouest"], "stats": { "agents": 28, "missions": 7, "incidents": 0, "risk": "low" }, "events": [] },
+      { "id": "CG14", "name": "Plateaux", "districts": ["Djambala","Gamboma","Lekana","Ngo"], "zones": ["Zone Plateaux Est"], "stats": { "agents": 52, "missions": 14, "incidents": 2, "risk": "medium" }, "events": [] },
+      { "id": "CG12", "name": "Pool", "districts": ["Kinkala","Boko","Mayama","Ngabe","Mindouli"], "zones": ["Zone Pool Nord","Zone Pool Sud"], "stats": { "agents": 63, "missions": 16, "incidents": 3, "risk": "high" }, "events": [{ "date": "2026-03-04", "type": "Campagne", "description": "Porte-à-porte Kinkala", "lieu": "Kinkala" }] },
+      { "id": "CG11", "name": "Bouenza", "districts": ["Madingou","Mouyondzi","Nkayi","Loudima"], "zones": ["Zone Niari-Bouenza"], "stats": { "agents": 71, "missions": 19, "incidents": 2, "risk": "medium" }, "events": [] },
+      { "id": "CG2", "name": "Lékoumou", "districts": ["Sibiti","Zanaga","Bambama","Komono"], "zones": ["Zone Centre-Sud"], "stats": { "agents": 34, "missions": 9, "incidents": 1, "risk": "low" }, "events": [] },
+      { "id": "CG9", "name": "Niari", "districts": ["Dolisie","Mossendjo","Kibangou","Nkola"], "zones": ["Zone Niari"], "stats": { "agents": 58, "missions": 15, "incidents": 4, "risk": "medium" }, "events": [] },
+      { "id": "CG5", "name": "Kouilou", "districts": ["Loango","Hinda","Madingo-Kayes"], "zones": ["Zone Côte-Loango"], "stats": { "agents": 31, "missions": 8, "incidents": 1, "risk": "low" }, "events": [] },
+      { "id": "CG7", "name": "Likouala", "districts": ["Impfondo","Betou","Dongou","Enyelle"], "zones": ["Zone Nord-Est"], "stats": { "agents": 22, "missions": 5, "incidents": 0, "risk": "medium" }, "events": [] },
+      { "id": "CG13", "name": "Sangha", "districts": ["Ouesso","Sembé","Souanké"], "zones": ["Zone Forêt Nord"], "stats": { "agents": 19, "missions": 4, "incidents": 0, "risk": "low" }, "events": [] }
+    ]
   },
-  "priorities": [],
-  "incidents24h": [],
-  "calendarToday": [],
-  "completePollingReview": {
-    "summary": {
-      "total": 0,
-      "supportAverage": 0,
-      "turnoutAverage": 0,
-      "topIssue": "-",
-      "topRegion": "-"
-    },
-    "items": []
-  },
+  "priorities": [
+    { "regionId": "CG16", "region": "Pointe-Noire", "percent": 58, "risk": "critical", "action": "Urgence" },
+    { "regionId": "CGBZV", "region": "Brazzaville", "percent": 72, "risk": "high", "action": "Renforcer" },
+    { "regionId": "CG12", "region": "Pool", "percent": 44, "risk": "high", "action": "Surveiller" },
+    { "regionId": "CG11", "region": "Bouenza", "percent": 61, "risk": "medium", "action": "Consolider" },
+    { "regionId": "CG14", "region": "Plateaux", "percent": 53, "risk": "medium", "action": "Développer" },
+    { "regionId": "CG9", "region": "Niari", "percent": 48, "risk": "medium", "action": "Mobiliser" }
+  ],
+  "incidents24h": [
+    { "heure": "07:14", "lieu": "Pointe-Noire", "type": "Perturbation meeting", "gravite": "High", "statut": "En cours" },
+    { "heure": "09:32", "lieu": "Brazzaville / Poto-Poto", "type": "Tract adverse", "gravite": "Medium", "statut": "Résolu" },
+    { "heure": "11:05", "lieu": "Pool / Kinkala", "type": "Blocage itinéraire", "gravite": "High", "statut": "En cours" },
+    { "heure": "13:20", "lieu": "Niari / Dolisie", "type": "Désinformation réseaux", "gravite": "Medium", "statut": "Résolu" },
+    { "heure": "15:47", "lieu": "Bouenza / Madingou", "type": "Panne logistique", "gravite": "Low", "statut": "Résolu" },
+    { "heure": "17:30", "lieu": "Brazzaville / Talangaï", "type": "Manifestation adverse", "gravite": "Critical", "statut": "Surveillé" }
+  ],
+  "calendarToday": [
+    { "time": "08:00", "type": "Brief équipe War Room", "lieu": "Siège MRC", "responsable": "War Room Admin" },
+    { "time": "10:30", "type": "Meeting Brazzaville Nord", "lieu": "Salle Poto-Poto", "responsable": "Coord. BZV" },
+    { "time": "14:00", "type": "Porte-à-porte Kinkala", "lieu": "Pool / Kinkala", "responsable": "Zone Pool" },
+    { "time": "16:00", "type": "Publication médias sociaux", "lieu": "Digital", "responsable": "Équipe Digital" },
+    { "time": "19:00", "type": "Consolidation données", "lieu": "War Room", "responsable": "War Room Admin" }
+  ],
   "campaign": {
-    "totalPublished": 0,
-    "newAdherents": 0,
-    "newVolunteers": 0,
-    "terrainReports": 0,
-    "missionsReported": 0,
-    "digitalEntries": 0,
-    "incidentEntries": 0,
-    "logisticsEntries": 0,
-    "pollingAverage": 0,
-    "publishedToday": 0,
-    "memberDepartmentsCovered": 0
-  }
+    "totalPublished": 24,
+    "newAdherents": 312,
+    "newVolunteers": 47,
+    "terrainReports": 89,
+    "missionsReported": 126,
+    "digitalEntries": 34,
+    "incidentEntries": 6,
+    "logisticsEntries": 18,
+    "pollingAverage": 42,
+    "publishedToday": 7,
+    "memberDepartmentsCovered": 9
+  },
+  "logistique": {
+    "budget": {
+      "total": 45000000,
+      "depense": 12800000,
+      "reserve": 5000000,
+      "devise": "FCFA"
+    },
+    "vehicules": [
+      { "id": "V001", "type": "4x4", "immatriculation": "BI-1247-CG", "chauffeur": "Jean Moukassa",    "statut": "deploye",     "regionId": "CGBZV", "region": "Brazzaville",  "mission": "Convoi candidat" },
+      { "id": "V002", "type": "4x4", "immatriculation": "BI-3891-CG", "chauffeur": "Michel Ngoma",     "statut": "deploye",     "regionId": "CG13",  "region": "Sangha",       "mission": "Sécurité convoi" },
+      { "id": "V003", "type": "4x4", "immatriculation": "BI-0564-CG", "chauffeur": "Alain Mabiala",    "statut": "deploye",     "regionId": "CG8",   "region": "Cuvette",      "mission": "Logistique avancée" },
+      { "id": "V004", "type": "minibus", "immatriculation": "BI-7723-CG", "chauffeur": "Serge Kimboula", "statut": "disponible", "regionId": "CGBZV", "region": "Brazzaville", "mission": "Transport équipe" },
+      { "id": "V005", "type": "camion", "immatriculation": "BI-4410-CG",  "chauffeur": "Patrice Louzolo", "statut": "deploye", "regionId": "CG16",  "region": "Pointe-Noire", "mission": "Matériel meetings" },
+      { "id": "V006", "type": "4x4", "immatriculation": "BI-2298-CG", "chauffeur": "Claude Elenga",    "statut": "maintenance", "regionId": "CGBZV", "region": "Brazzaville",  "mission": "En réparation" },
+      { "id": "V007", "type": "minibus", "immatriculation": "BI-8834-CG", "chauffeur": "Fiston Banzouzi","statut": "disponible","regionId": "CG12",  "region": "Pool",         "mission": "Porte-à-porte" },
+      { "id": "V008", "type": "camion", "immatriculation": "BI-5591-CG",  "chauffeur": "Roger Ntsiba",   "statut": "deploye",   "regionId": "CG9",   "region": "Niari",        "mission": "Distribution tracts" }
+    ],
+    "materiel": [
+      { "id": "M001", "nom": "Sonorisation (kit complet)", "categorie": "technique",   "quantite": 8,    "disponible": 5,   "statut": "partiel",     "lieu": "Brazzaville + terrain" },
+      { "id": "M002", "nom": "Générateurs",               "categorie": "technique",   "quantite": 6,    "disponible": 4,   "statut": "partiel",     "lieu": "Deployed" },
+      { "id": "M003", "nom": "Banderoles 3m×1m",          "categorie": "com",         "quantite": 2400, "disponible": 800, "statut": "partiel",     "lieu": "Stock BZV" },
+      { "id": "M004", "nom": "T-shirts MRC",              "categorie": "com",         "quantite": 5000, "disponible": 2200,"statut": "partiel",     "lieu": "Stock BZV + régions" },
+      { "id": "M005", "nom": "Tracts A5",                 "categorie": "com",         "quantite": 50000,"disponible": 18000,"statut": "partiel",    "lieu": "Distribution en cours" },
+      { "id": "M006", "nom": "Tentes 6×4m",              "categorie": "infrastructure","quantite": 12,  "disponible": 8,   "statut": "partiel",     "lieu": "Terrain" },
+      { "id": "M007", "nom": "Badges accréditation",      "categorie": "securite",    "quantite": 600,  "disponible": 310, "statut": "partiel",     "lieu": "War Room BZV" },
+      { "id": "M008", "nom": "Tablettes terrain",         "categorie": "technique",   "quantite": 40,   "disponible": 40,  "statut": "ok",          "lieu": "Agents terrain" },
+      { "id": "M009", "nom": "Bidons carburant 20L",      "categorie": "carburant",   "quantite": 120,  "disponible": 45,  "statut": "critique",    "lieu": "Dépôt central" },
+      { "id": "M010", "nom": "Kits premiers secours",     "categorie": "securite",    "quantite": 20,   "disponible": 18,  "statut": "ok",          "lieu": "Convois" }
+    ],
+    "risques": [
+      { "id": "R001", "date": "2026-03-06", "heure": "08:15", "region": "Pointe-Noire", "type": "Carburant",    "description": "Stock carburant bas — réserve 2 jours seulement",     "gravite": "high",     "statut": "en_cours" },
+      { "id": "R002", "date": "2026-03-06", "heure": "10:30", "region": "Brazzaville",  "type": "Véhicule",    "description": "V006 en panne — chauffeur mobilisé sur réparation",    "gravite": "medium",   "statut": "en_cours" },
+      { "id": "R003", "date": "2026-03-05", "heure": "16:45", "region": "Cuvette",      "type": "Route",       "description": "Axe Owando-Oyo coupé après pluies — déviation",        "gravite": "high",     "statut": "resolu" },
+      { "id": "R004", "date": "2026-03-05", "heure": "09:00", "region": "Niari",        "type": "Matériel",    "description": "Sonorisation Dolisie en panne pendant meeting",          "gravite": "medium",   "statut": "resolu" },
+      { "id": "R005", "date": "2026-03-06", "heure": "06:00", "region": "Sangha",       "type": "Logistique",  "description": "Retard livraison tracts Ouesso — 4h de délai",           "gravite": "low",      "statut": "en_cours" }
+    ]
+  },
+  "candidateProgramme": [
+    { "date": "2026-03-01", "lieu": "Dolisie",      "departement": "Niari",         "regionId": "CG9",   "type": "visite",  "nuit": false },
+    { "date": "2026-03-02", "lieu": "Sibiti",        "departement": "Lékoumou",      "regionId": "CG2",   "type": "visite",  "nuit": false },
+    { "date": "2026-03-02", "lieu": "Madingou",      "departement": "Bouenza",       "regionId": "CG11",  "type": "nuit",    "nuit": true  },
+    { "date": "2026-03-03", "lieu": "Kinkala",       "departement": "Pool",          "regionId": "CG12",  "type": "visite",  "nuit": false },
+    { "date": "2026-03-04", "lieu": "Djambala",      "departement": "Plateaux",      "regionId": "CG14",  "type": "visite",  "nuit": false },
+    { "date": "2026-03-05", "lieu": "Ewo",           "departement": "Cuvette-Ouest", "regionId": "CG15",  "type": "visite",  "nuit": false },
+    { "date": "2026-03-05", "lieu": "Impfondo",      "departement": "Likouala",      "regionId": "CG7",   "type": "nuit",    "nuit": true  },
+    { "date": "2026-03-06", "lieu": "Ouesso",        "departement": "Sangha",        "regionId": "CG13",  "type": "visite",  "nuit": false },
+    { "date": "2026-03-07", "lieu": "Owando",        "departement": "Cuvette",       "regionId": "CG8",   "type": "visite",  "nuit": false },
+    { "date": "2026-03-08", "lieu": "Mossaka",       "departement": "Cuvette",       "regionId": "CG8",   "type": "visite",  "nuit": false },
+    { "date": "2026-03-08", "lieu": "Oyo",           "departement": "Cuvette",       "regionId": "CG8",   "type": "nuit",    "nuit": true  },
+    { "date": "2026-03-09", "lieu": "Ngomboma",      "departement": "Cuvette",       "regionId": "CG8",   "type": "visite",  "nuit": false },
+    { "date": "2026-03-09", "lieu": "Ignie",         "departement": "Cuvette",       "regionId": "CG8",   "type": "visite",  "nuit": false },
+    { "date": "2026-03-09", "lieu": "Brazzaville",   "departement": "Brazzaville",   "regionId": "CGBZV", "type": "retour",  "nuit": false }
+  ]
 }
