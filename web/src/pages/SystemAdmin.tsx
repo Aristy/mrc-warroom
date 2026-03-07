@@ -11,10 +11,12 @@ const ROLE_LABELS: Record<string, string> = {
   war_room: 'War Room', regional_coordinator: 'Coordinateur', zone_leader: 'Chef de Zone',
   field_agent: 'Agent Terrain', membership_data_entry: 'Saisie Adhésion',
   candidate: 'Candidat', direction: 'Direction',
+  digital_team: 'Équipe Digitale', logistics_team: 'Équipe Logistique',
 };
 const ROLE_COLORS: Record<string, string> = {
   war_room: '#dc2626', regional_coordinator: '#d97706', zone_leader: '#2563eb',
   field_agent: '#16a34a', membership_data_entry: '#7c3aed', candidate: '#9a1f1f', direction: '#0891b2',
+  digital_team: '#0d9488', logistics_team: '#c2410c',
 };
 
 const VIS_KEYS: Array<{ key: keyof User['candidateVisibility']; label: string }> = [
@@ -361,6 +363,8 @@ const ALL_ROLES: Array<{ value: string; label: string }> = [
   { value: 'field_agent',           label: 'Agent Terrain' },
   { value: 'membership_data_entry', label: 'Saisie Adhésion' },
   { value: 'candidate',             label: 'Candidat' },
+  { value: 'digital_team',          label: 'Équipe Digitale' },
+  { value: 'logistics_team',        label: 'Équipe Logistique' },
 ];
 
 function UserForm({

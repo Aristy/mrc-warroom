@@ -9,6 +9,8 @@ export const campaignApi = {
 export const membersApi = {
   list: (params?: { departmentId?: string; status?: string }) => apiFetch<{ items: MemberEnrollment[]; total: number }>(`/api/member-enrollments${params ? '?' + new URLSearchParams(params as Record<string, string>) : ''}`),
   create: (data: unknown) => apiPost<MemberEnrollment>('/api/member-enrollments', data),
+  validateZone: (id: string) => apiPost<MemberEnrollment>(`/api/member-enrollments/${id}/validate-zone`, {}),
+  reject: (id: string, note?: string) => apiPost<MemberEnrollment>(`/api/member-enrollments/${id}/reject`, { note }),
   publish: (id: string, note?: string) => apiPost<MemberEnrollment>(`/api/member-enrollments/${id}/publish`, { note }),
 };
 

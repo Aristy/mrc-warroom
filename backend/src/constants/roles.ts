@@ -5,32 +5,39 @@ export type Role =
   | 'field_agent'
   | 'membership_data_entry'
   | 'candidate'
-  | 'direction';
+  | 'direction'
+  | 'digital_team'
+  | 'logistics_team';
 
 export const ROLE_SEED = [
-  { id: 'war_room', name: 'War Room', homePath: '/dashboard' },
-  { id: 'regional_coordinator', name: 'Coordinateur regional', homePath: '/dashboard' },
-  { id: 'zone_leader', name: 'Chef de zone', homePath: '/campaign' },
-  { id: 'field_agent', name: 'Agent terrain', homePath: '/campaign' },
-  { id: 'membership_data_entry', name: 'Saisie adhesion', homePath: '/members' },
-  { id: 'candidate', name: 'Candidat', homePath: '/candidate' },
-  { id: 'direction', name: 'Direction', homePath: '/candidate' },
+  { id: 'war_room',              name: 'War Room',               homePath: '/dashboard' },
+  { id: 'regional_coordinator',  name: 'Coordinateur regional',  homePath: '/dashboard' },
+  { id: 'zone_leader',           name: 'Chef de zone',           homePath: '/campaign' },
+  { id: 'field_agent',           name: 'Agent terrain',          homePath: '/campaign' },
+  { id: 'membership_data_entry', name: 'Saisie adhesion',        homePath: '/members' },
+  { id: 'candidate',             name: 'Candidat',               homePath: '/candidate' },
+  { id: 'direction',             name: 'Direction',              homePath: '/candidate' },
+  { id: 'digital_team',          name: 'Equipe digitale',        homePath: '/social' },
+  { id: 'logistics_team',        name: 'Equipe logistique',      homePath: '/logistique' },
 ] as const;
 
 export const OPERATIONS_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'field_agent']);
 export const MEMBER_ENTRY_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'membership_data_entry']);
 export const MEMBER_ENTRY_WRITE_ROLES = new Set<Role>(['regional_coordinator', 'zone_leader', 'membership_data_entry']);
+export const MEMBER_ENTRY_ZONE_VALIDATION_ROLES = new Set<Role>(['zone_leader', 'regional_coordinator', 'war_room']);
 export const MEMBER_ENTRY_PUBLICATION_ROLES = new Set<Role>(['war_room']);
-export const EVENT_VIEW_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'field_agent', 'direction']);
+
+export const EVENT_VIEW_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'field_agent', 'direction', 'digital_team']);
 export const EVENT_WRITE_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'field_agent']);
-export const EVENT_ZONE_VALIDATION_ROLES = new Set<Role>(['war_room', 'regional_coordinator']);
+export const EVENT_ZONE_VALIDATION_ROLES = new Set<Role>(['zone_leader', 'regional_coordinator', 'war_room']);
 export const EVENT_WR_VALIDATION_ROLES = new Set<Role>(['war_room']);
+
 export const TERRITORY_ACCESS_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'direction']);
-export const TERRITORY_REFERENCE_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'field_agent', 'membership_data_entry', 'direction']);
+export const TERRITORY_REFERENCE_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'field_agent', 'membership_data_entry', 'direction', 'digital_team', 'logistics_team']);
 export const TEAM_ACCESS_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'direction']);
-export const MEDIA_MONITORING_VIEW_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'direction']);
-export const MEDIA_MONITORING_WRITE_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader']);
-export const SOCIAL_DASHBOARD_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'direction']);
+export const MEDIA_MONITORING_VIEW_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'direction', 'digital_team']);
+export const MEDIA_MONITORING_WRITE_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'zone_leader', 'digital_team']);
+export const SOCIAL_DASHBOARD_ROLES = new Set<Role>(['war_room', 'regional_coordinator', 'direction', 'digital_team']);
 export const SYSTEM_ADMIN_ROLES = new Set<Role>(['war_room', 'direction']);
 export const EXECUTIVE_ROLES = new Set<Role>(['candidate', 'direction']);
 

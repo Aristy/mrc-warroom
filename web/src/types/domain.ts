@@ -1,4 +1,4 @@
-export type Role = 'war_room' | 'regional_coordinator' | 'zone_leader' | 'field_agent' | 'membership_data_entry' | 'candidate' | 'direction';
+export type Role = 'war_room' | 'regional_coordinator' | 'zone_leader' | 'field_agent' | 'membership_data_entry' | 'candidate' | 'direction' | 'digital_team' | 'logistics_team';
 export type TerrainModuleId = 'campaign' | 'sondage' | 'incident' | 'events' | 'mission' | 'digital' | 'logistique' | 'adherent';
 export type CampaignCategory = 'terrain' | 'sondage' | 'incident' | 'adherent' | 'digital' | 'mission' | 'logistique';
 export type AlertLevel = 'low' | 'medium' | 'high' | 'critical' | 'normal';

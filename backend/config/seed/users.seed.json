@@ -95,6 +95,26 @@
       "passwordHash": "43c6d693e45fa168ce1c1bb17410df94f7d1dd0932836fe081d3c780b9d04716f1da56348fc67f176f4e303d93c296b1f03df50f0de3c0d0bec03a53bdedc6c6"
     },
     {
+      "id": "usr_digital_team",
+      "username": "digital.team",
+      "email": "digital.team@mrc.local",
+      "name": "Equipe Digitale",
+      "role": "digital_team",
+      "terrainModules": ["events", "digital"],
+      "passwordSalt": "a41bd754ecd1ff38fd899b6731df9768",
+      "passwordHash": "1161b060e9f663b649c0008eedb7f700f4157afe27a843607abcd517d5a69fb9409fb17ee297260dbb120076d5c823d90f7e34acc8ea17e0e75bcb18c3fb4d3d"
+    },
+    {
+      "id": "usr_logistics_team",
+      "username": "logistics.team",
+      "email": "logistics.team@mrc.local",
+      "name": "Equipe Logistique",
+      "role": "logistics_team",
+      "terrainModules": ["logistique"],
+      "passwordSalt": "eea1428ab97adb48467fceaaf9f57bc3",
+      "passwordHash": "1986923999032190c986a75845bb27badd38f878b1277309c88d1485015a065bb73b3c71d7a9f938f25e12817bf24c925ebc13bc98a1b2a5e8ae98d91b3af5e7"
+    },
+    {
       "id": "usr_direction_exec",
       "username": "direction.exec",
       "email": "direction.exec@mrc.local",

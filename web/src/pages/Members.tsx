@@ -1,89 +1,161 @@
 import { useState } from 'react';
+import type { CSSProperties } from 'react';
 import { useApi } from '../hooks/useApi.js';
 import { membersApi } from '../api/campaign.api.js';
 import { useAuth } from '../context/AuthContext.js';
+import { useTheme } from '../context/ThemeContext.js';
 import type { MemberEnrollment } from '../types/domain.js';
 
-const STATUS_LABELS: Record<string, string> = { pending: 'En attente', published: 'Publié' };
+const STATUS: Record<string, { label: string; color: string }> = {
+  pending_review: { label: 'En attente',       color: '#f59e0b' },
+  zone_validated: { label: 'Validé N1 (Zone)', color: '#3b82f6' },
+  actif:          { label: 'Actif',            color: '#22c55e' },
+  rejected:       { label: 'Rejeté',           color: '#ef4444' },
+};
+
+const FILTERS = [
+  { val: '',               label: 'Tous' },
+  { val: 'pending_review', label: 'En attente' },
+  { val: 'zone_validated', label: 'Validé N1' },
+  { val: 'actif',          label: 'Actifs' },
+  { val: 'rejected',       label: 'Rejetés' },
+];
+
+function Btn({ color, children, onClick }: { color: string; children: React.ReactNode; onClick: () => void }) {
+  const s: CSSProperties = {
+    background: color + '22', color, border: `1px solid ${color}55`,
+    borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600,
+    cursor: 'pointer', whiteSpace: 'nowrap',
+  };
+  return <button style={s} onClick={onClick}>{children}</button>;
+}
 
 export default function Members() {
   const { user } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [statusFilter, setStatusFilter] = useState('');
-  const { data, loading, refresh } = useApi(() => membersApi.list(statusFilter ? { status: statusFilter } : {}), [statusFilter]);
+  const { data, loading, refresh } = useApi(
+    () => membersApi.list(statusFilter ? { status: statusFilter } : {}),
+    [statusFilter],
+  );
 
   const members: MemberEnrollment[] = data?.items ?? [];
-  const canPublish = ['war_room'].includes(user?.role ?? '');
+  const canN1 = ['zone_leader', 'regional_coordinator', 'war_room'].includes(user?.role ?? '');
+  const canN2 = user?.role === 'war_room';
 
-  const handlePublish = async (id: string) => {
-    await membersApi.publish(id);
+  const doValidateZone = async (id: string) => { await membersApi.validateZone(id); refresh(); };
+  const doReject = async (id: string) => {
+    const note = prompt('Motif du rejet :') ?? '';
+    await membersApi.reject(id, note);
     refresh();
   };
+  const doActivate = async (id: string) => { await membersApi.publish(id); refresh(); };
+
+  const bg      = isDark ? '#0f1117' : '#f0f2f8';
+  const surface = isDark ? '#1a1d27' : '#ffffff';
+  const border  = isDark ? '#2a2d3a' : '#e5e7eb';
+  const text    = isDark ? '#e8eaf0' : '#1a1d27';
+  const muted   = isDark ? '#8b8fa8' : '#6b7280';
+  const th      = isDark ? '#4b5280' : '#9ca3af';
 
   return (
-    <div className="page-content">
-      <div className="page-header">
-        <h1>Adhésions</h1>
-        <span className="badge">{data?.total ?? 0}</span>
+    <div style={{ padding: 24, fontFamily: 'Inter, sans-serif', background: bg, minHeight: '100vh', color: text }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>Adhésions MRC</h1>
+        <span style={{ background: isDark ? '#1e3a5f' : '#dbeafe', color: isDark ? '#60a5fa' : '#1d4ed8', borderRadius: 20, padding: '2px 12px', fontSize: 13 }}>
+          {data?.total ?? 0}
+        </span>
       </div>
 
-      <div className="filter-bar">
-        {[{ val: '', label: 'Tous' }, { val: 'pending', label: 'En attente' }, { val: 'published', label: 'Publiés' }].map(f => (
-          <button key={f.val} className={`filter-btn ${statusFilter === f.val ? 'active' : ''}`} onClick={() => setStatusFilter(f.val)}>
-            {f.label}
-          </button>
-        ))}
+      {/* N1/N2 workflow legend */}
+      <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, padding: '12px 16px', marginBottom: 18, display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+        <span style={{ fontSize: 11, color: muted, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>Workflow</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ background: '#f59e0b22', color: '#f59e0b', border: '1px solid #f59e0b44', borderRadius: 20, padding: '2px 10px', fontSize: 11, fontWeight: 700 }}>Soumis</span>
+          <span style={{ color: muted }}>→</span>
+          <span style={{ background: '#3b82f622', color: '#3b82f6', border: '1px solid #3b82f644', borderRadius: 20, padding: '2px 10px', fontSize: 11, fontWeight: 700 }}>N1 Zone</span>
+          <span style={{ fontSize: 11, color: muted }}>(zone_leader / regional_coordinator)</span>
+          <span style={{ color: muted }}>→</span>
+          <span style={{ background: '#22c55e22', color: '#22c55e', border: '1px solid #22c55e44', borderRadius: 20, padding: '2px 10px', fontSize: 11, fontWeight: 700 }}>N2 War Room</span>
+          <span style={{ fontSize: 11, color: muted }}>(war_room)</span>
+        </div>
       </div>
 
-      {loading ? <div className="loading">Chargement…</div> : (
-        <div className="table-wrapper">
-          {members.length === 0 ? <div className="empty-state">Aucune adhésion.</div> : (
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Nom</th><th>Téléphone</th><th>Département</th><th>Statut</th><th>Date</th><th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {members.map(m => (
-                  <tr key={m.id}>
-                    <td>{m.fullName ?? `${m.lastName} ${m.firstNames}`}</td>
-                    <td>{m.phone ?? '—'}</td>
-                    <td>{m.departmentId ?? '—'}</td>
-                    <td>
-                      <span className={`status-pill ${m.status}`}>{STATUS_LABELS[m.status] ?? m.status}</span>
+      {/* Filters */}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
+        {FILTERS.map(f => {
+          const active = statusFilter === f.val;
+          return (
+            <button key={f.val} onClick={() => setStatusFilter(f.val)} style={{
+              padding: '6px 14px', borderRadius: 20, border: `1px solid ${active ? '#9a1f1f' : border}`,
+              background: active ? '#9a1f1f' : surface, color: active ? '#fff' : muted,
+              cursor: 'pointer', fontSize: 13, fontWeight: active ? 600 : 400,
+            }}>
+              {f.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {loading ? (
+        <div style={{ color: muted, padding: 40, textAlign: 'center' }}>Chargement…</div>
+      ) : members.length === 0 ? (
+        <div style={{ color: muted, padding: 40, textAlign: 'center' }}>Aucune adhésion pour ce filtre.</div>
+      ) : (
+        <div style={{ background: surface, border: `1px solid ${border}`, borderRadius: 10, overflow: 'hidden' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${border}` }}>
+                {['Membre', 'Téléphone', 'Département', 'Soumis par', 'Date', 'Statut', 'Actions N1 / N2'].map(h => (
+                  <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: th, textTransform: 'uppercase', fontWeight: 600, letterSpacing: 0.5 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {members.map((m, i) => {
+                const st = STATUS[m.status] ?? { label: m.status, color: '#6b7280' };
+                return (
+                  <tr key={m.id} style={{ borderBottom: `1px solid ${border}`, background: i % 2 === 0 ? 'transparent' : (isDark ? '#ffffff08' : '#f9fafb') }}>
+                    <td style={{ padding: '12px 14px' }}>
+                      <div style={{ fontWeight: 600, fontSize: 13 }}>{m.fullName || `${m.lastName} ${m.firstNames}`}</div>
+                      <div style={{ fontSize: 11, color: muted }}>{m.membershipType || 'Membre actif'}</div>
                     </td>
-                    <td>{new Date(m.submittedAt).toLocaleDateString('fr-FR')}</td>
-                    <td>
-                      {canPublish && m.status === 'pending' && (
-                        <button className="btn-publish" onClick={() => handlePublish(m.id)}>Publier</button>
-                      )}
+                    <td style={{ padding: '12px 14px', fontSize: 13, fontFamily: 'JetBrains Mono, monospace' }}>{m.phone || '—'}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 13 }}>{m.departmentName || m.departmentId || '—'}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: muted }}>{m.submittedByUsername || '—'}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: muted }}>
+                      {new Date(m.submittedAt).toLocaleDateString('fr-FR')}
+                    </td>
+                    <td style={{ padding: '12px 14px' }}>
+                      <span style={{ background: st.color + '22', color: st.color, border: `1px solid ${st.color}44`, borderRadius: 20, padding: '3px 10px', fontSize: 11, fontWeight: 600 }}>
+                        {st.label}
+                      </span>
+                    </td>
+                    <td style={{ padding: '12px 14px' }}>
+                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                        {canN1 && m.status === 'pending_review' && (
+                          <>
+                            <Btn color="#3b82f6" onClick={() => doValidateZone(m.id)}>✓ Valider N1</Btn>
+                            <Btn color="#ef4444" onClick={() => doReject(m.id)}>✗ Rejeter</Btn>
+                          </>
+                        )}
+                        {canN2 && m.status === 'zone_validated' && (
+                          <>
+                            <Btn color="#22c55e" onClick={() => doActivate(m.id)}>✓ Activer N2</Btn>
+                            <Btn color="#ef4444" onClick={() => doReject(m.id)}>✗ Rejeter</Btn>
+                          </>
+                        )}
+                      </div>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
-
-      <style>{`
-        .page-content { padding: 24px; }
-        .page-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-        .page-header h1 { font-size: 22px; font-weight: 700; color: #f1f5f9; margin: 0; }
-        .badge { background: #1e3a5f; color: #60a5fa; border-radius: 20px; padding: 2px 10px; font-size: 13px; }
-        .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; }
-        .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid #374151; background: #1c2333; color: #9ca3af; cursor: pointer; font-size: 13px; }
-        .filter-btn.active { background: #2563eb; border-color: #2563eb; color: #fff; }
-        .loading, .empty-state { color: #9ca3af; padding: 40px; text-align: center; }
-        .table-wrapper { overflow-x: auto; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th { text-align: left; padding: 10px 12px; color: #6b7280; font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #1f2937; }
-        .data-table td { padding: 12px; border-bottom: 1px solid #1f2937; color: #d1d5db; font-size: 14px; }
-        .status-pill { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
-        .status-pill.pending { background: #1e3a5f; color: #60a5fa; }
-        .status-pill.published { background: #064e3b; color: #34d399; }
-        .btn-publish { padding: 4px 10px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
-      `}</style>
     </div>
   );
 }

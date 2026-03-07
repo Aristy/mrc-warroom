@@ -82,9 +82,25 @@ export function insertMemberEnrollment(data: Partial<MemberEnrollment>): MemberE
   return readMemberEnrollments()[0];
 }
 
+export function validateZoneMemberEnrollment(id: string, validatedBy: string): MemberEnrollment | null {
+  const now = new Date().toISOString();
+  db.prepare(`UPDATE member_enrollments SET status = 'zone_validated', published_by = ?, updated_at = ? WHERE id = ? AND status = 'pending_review'`)
+    .run(validatedBy, now, id);
+  const rows = db.prepare('SELECT * FROM member_enrollments WHERE id = ?').all(id) as unknown[];
+  return rows.length ? mapRow(rows[0]) : null;
+}
+
+export function rejectMemberEnrollment(id: string, rejectedBy: string, note: string): MemberEnrollment | null {
+  const now = new Date().toISOString();
+  db.prepare(`UPDATE member_enrollments SET status = 'rejected', publication_note = ?, published_by = ?, updated_at = ? WHERE id = ?`)
+    .run(note, rejectedBy, now, id);
+  const rows = db.prepare('SELECT * FROM member_enrollments WHERE id = ?').all(id) as unknown[];
+  return rows.length ? mapRow(rows[0]) : null;
+}
+
 export function publishMemberEnrollment(id: string, note: string, publishedBy: string): MemberEnrollment | null {
   const now = new Date().toISOString();
-  db.prepare(`UPDATE member_enrollments SET status = 'published', publication_note = ?, published_by = ?, published_at = ?, updated_at = ? WHERE id = ?`)
+  db.prepare(`UPDATE member_enrollments SET status = 'actif', publication_note = ?, published_by = ?, published_at = ?, updated_at = ? WHERE id = ? AND status = 'zone_validated'`)
     .run(note, publishedBy, now, now, id);
   const rows = db.prepare('SELECT * FROM member_enrollments WHERE id = ?').all(id) as unknown[];
   return rows.length ? mapRow(rows[0]) : null;
